@@ -65,8 +65,10 @@
       wayland.enable = true;
     };
     desktopManager.plasma6.enable = true;
-    layout = "us";
-    xkbVariant = "";
+    xkb = {
+	layout = "us";
+        variant = "";
+    };
   };
 
   # Enable printing
