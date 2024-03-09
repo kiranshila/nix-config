@@ -40,7 +40,7 @@
     firefox
 
     # language toolchains
-    julia
+    julia-bin
     clang
     rustup
 
