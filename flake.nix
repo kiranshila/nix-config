@@ -1,16 +1,15 @@
 {
   description = "Kiran's NixOS Config";
   inputs = {
-    # NixPkgs, stable and unstable
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    # NixPkgs unstable
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # Home Manager
-    home-manager.url = "github:nix-community/home-manager/release-23.11";
+    home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # Hardware Definitions
-    hardware.url = "github:NixOS/nixos-hardware/master";
+    hardware.url = "github:NixOS/nixos-hardware";
 
     # Plasma Manager
     plasma-manager.url = "github:pjones/plasma-manager";
@@ -23,7 +22,6 @@
   outputs = {
     self,
     nixpkgs,
-    nixpkgs-unstable,
     home-manager,
     hardware,
     plasma-manager,

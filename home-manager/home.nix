@@ -40,7 +40,7 @@
     firefox
 
     # language toolchains
-    unstable.julia
+    julia
     clang
     rustup
 

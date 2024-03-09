@@ -58,14 +58,13 @@
   };
 
   # X Server Setup (KDE Plasma and SDDM)
-  # TODO switch to Wayland?
   services.xserver = {
     enable = true;
     displayManager.sddm = {
       enable = true;
       wayland.enable = true;
     };
-    desktopManager.plasma5.enable = true;
+    desktopManager.plasma6.enable = true;
     layout = "us";
     xkbVariant = "";
   };
@@ -96,7 +95,6 @@
     # Setup the overlays
     overlays = [
       inputs.nix-vscode-extensions.overlays.default
-      outputs.overlays.unstable-packages
     ];
     # Configure your nixpkgs instance to allow unfree
     # Sorry, RMS
