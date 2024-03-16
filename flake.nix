@@ -11,6 +11,9 @@
     # Hardware Definitions
     hardware.url = "github:NixOS/nixos-hardware";
 
+    # Emacs Overlay
+    emacs.url = "github:nix-community/emacs-overlay";
+
     # Nix vscode extensions
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
   };
@@ -19,6 +22,7 @@
     nixpkgs,
     home-manager,
     hardware,
+    emacs,
     nix-vscode-extensions,
     ...
   } @ inputs: let

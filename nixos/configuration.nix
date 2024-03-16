@@ -106,6 +106,7 @@
     # Setup the overlays
     overlays = [
       inputs.nix-vscode-extensions.overlays.default
+      inputs.emacs.overlay
     ];
     # Configure your nixpkgs instance to allow unfree
     # Sorry, RMS

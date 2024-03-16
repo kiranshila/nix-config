@@ -49,6 +49,7 @@
     neovim
     neovide
     obsidian
+    emacs-pgtk
 
     # nix tools
     alejandra
