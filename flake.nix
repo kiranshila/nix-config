@@ -11,11 +11,6 @@
     # Hardware Definitions
     hardware.url = "github:NixOS/nixos-hardware";
 
-    # Plasma Manager
-    plasma-manager.url = "github:pjones/plasma-manager";
-    plasma-manager.inputs.nixpkgs.follows = "nixpkgs";
-    plasma-manager.inputs.home-manager.follows = "home-manager";
-
     # Nix vscode extensions
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
   };
@@ -24,7 +19,6 @@
     nixpkgs,
     home-manager,
     hardware,
-    plasma-manager,
     nix-vscode-extensions,
     ...
   } @ inputs: let

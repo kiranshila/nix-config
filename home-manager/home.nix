@@ -376,41 +376,6 @@
     };
   };
 
-  # KDE Settings
-  programs.plasma = {
-    enable = true;
-    workspace = {
-      clickItemTo = "select";
-      wallpaper = ../wallpaper.jpg;
-    };
-    hotkeys.commands = {
-      "alacritty" = {
-        comment = "Default Terminal";
-        key = "Meta+Return";
-        command = "alacritty";
-      };
-    };
-    panels = [
-      {
-        location = "bottom";
-        widgets = [
-          "org.kde.plasma.kickoff"
-          "org.kde.plasma.icontasks"
-          "org.kde.plasma.marginsseperator"
-          "org.kde.plasma.systemtray"
-          "org.kde.plasma.digitalclock"
-        ];
-      }
-      {
-        location = "top";
-        height = 26;
-        widgets = [
-          "org.kde.plasma.appmenu"
-        ];
-      }
-    ];
-  };
-
   # SSH Config
   programs.ssh = {
     enable = true;
