@@ -13,6 +13,7 @@
 
     # Emacs Overlay
     emacs.url = "github:nix-community/emacs-overlay";
+    emacs.inputs.nixpkgs.follows = "nixpkgs";
 
     # Nix vscode extensions
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";

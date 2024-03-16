@@ -49,7 +49,6 @@
     neovim
     neovide
     obsidian
-    emacs-pgtk
 
     # nix tools
     alejandra
@@ -387,6 +386,12 @@
         user = "user";
       };
     };
+  };
+
+  # Emacs
+  programs.emacs = {
+    enable = true;
+    package = pkgs.emacs-pgtk;
   };
 
   # NixOS State Version for Home
