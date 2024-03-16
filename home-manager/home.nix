@@ -43,10 +43,12 @@
     julia-bin
     clang
     rustup
+    cmake
 
     # editors
     neovim
     neovide
+    obsidian
 
     # nix tools
     alejandra
@@ -68,6 +70,9 @@
 
     # pretty
     lightly-qt
+
+    # games
+    osu-lazer
   ];
 
   # VSCode
@@ -404,6 +409,18 @@
         ];
       }
     ];
+  };
+
+  # SSH Config
+  programs.ssh = {
+    enable = true;
+    matchBlocks = {
+      "grex" = {
+        hostname = "grex.ovro.pvt";
+        proxyJump = "ssh.ovro.caltech.edu";
+        user = "user";
+      };
+    };
   };
 
   # NixOS State Version for Home
