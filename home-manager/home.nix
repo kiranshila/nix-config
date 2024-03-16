@@ -365,7 +365,7 @@
     enableSshSupport = true;
     defaultCacheTtl = 60;
     maxCacheTtl = 120;
-    pinentryPackage = "pkgs.pinentry-qt";
+    pinentryPackage = pkgs.pinentry-qt;
   };
 
   # Setup pass
