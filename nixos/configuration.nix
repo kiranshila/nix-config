@@ -66,13 +66,18 @@
     };
     desktopManager.plasma6.enable = true;
     xkb = {
-	layout = "us";
-        variant = "";
+      layout = "us";
+      variant = "";
     };
   };
 
-  # Enable printing
-  services.printing.enable = true;
+  # Printing
+  services.printing = {
+    enable = true;
+    drivers = [
+      pkgs.hplip
+    ];
+  };
 
   # Enable bluetooth
   hardware.bluetooth = {
