@@ -179,9 +179,6 @@
   # Setup home manager
   home-manager = {
     extraSpecialArgs = {inherit inputs outputs;};
-    sharedModules = [
-      inputs.plasma-manager.homeManagerModules.plasma-manager
-    ];
     users = {
       # Import your home-manager configuration
       kiran = import ../home-manager/home.nix;
