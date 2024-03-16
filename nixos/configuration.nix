@@ -57,6 +57,11 @@
     };
   };
 
+  # KDE Setup
+  services.desktopManager = {
+    plasma6.enable = true;
+  };
+
   # X Server Setup (KDE Plasma and SDDM)
   services.xserver = {
     enable = true;
@@ -64,7 +69,6 @@
       enable = true;
       wayland.enable = true;
     };
-    desktopManager.plasma6.enable = true;
     xkb = {
       layout = "us";
       variant = "";
