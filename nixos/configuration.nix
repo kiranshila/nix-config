@@ -106,7 +106,6 @@
     # Setup the overlays
     overlays = [
       inputs.nix-vscode-extensions.overlays.default
-      inputs.emacs.overlay
     ];
     # Configure your nixpkgs instance to allow unfree
     # Sorry, RMS
@@ -243,6 +242,25 @@
   # NOTE: This is system-level because of how steam needs 32-bit binaries,
   # which must be installed systemwide
   programs.steam.enable = true;
+
+  # Enable Xbox One controller drivers
+  hardware.xone.enable = true;
+
+  # Udev rules for USB things like tigard
+  services.udev.extraRules = ''
+      # FT232AM/FT232BM/FT232R
+    SUBSYSTEM=="usb", ATTR{idVendor}=="0403", ATTR{idProduct}=="6001", GROUP="dialout", MODE="0664"
+    # FT2232C/FT2232D/FT2232H
+    SUBSYSTEM=="usb", ATTR{idVendor}=="0403", ATTR{idProduct}=="6010", GROUP="dialout", MODE="0664"
+    # FT4232/FT4232H
+    SUBSYSTEM=="usb", ATTR{idVendor}=="0403", ATTR{idProduct}=="6011", GROUP="dialout", MODE="0664"
+    # FT232H
+    SUBSYSTEM=="usb", ATTR{idVendor}=="0403", ATTR{idProduct}=="6014", GROUP="dialout", MODE="0664"
+    # FT230X/FT231X/FT234X
+    SUBSYSTEM=="usb", ATTR{idVendor}=="0403", ATTR{idProduct}=="6015", GROUP="dialout", MODE="0664"
+    # FT4232HA
+    SUBSYSTEM=="usb", ATTR{idVendor}=="0403", ATTR{idProduct}=="6048", GROUP="dialout", MODE="0664"
+  '';
 
   # NixOS "State Version"
   system.stateVersion = "23.11";
