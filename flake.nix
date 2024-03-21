@@ -11,10 +11,6 @@
     # Hardware Definitions
     hardware.url = "github:NixOS/nixos-hardware";
 
-    # Emacs Overlay
-    emacs.url = "github:nix-community/emacs-overlay";
-    emacs.inputs.nixpkgs.follows = "nixpkgs";
-
     # Nix vscode extensions
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
   };
@@ -23,7 +19,6 @@
     nixpkgs,
     home-manager,
     hardware,
-    emacs,
     nix-vscode-extensions,
     ...
   } @ inputs: let
@@ -31,6 +26,7 @@
   in {
     # Your custom packages and modifications, exported as overlays
     overlays = import ./overlays {inherit inputs;};
+
     # NixOS configuration entrypoint
     # Available through `nixos-rebuild --flake .#hostname`
     nixosConfigurations.kixtop = nixpkgs.lib.nixosSystem {
