@@ -24,6 +24,12 @@
     tldr
     tmux
 
+    # Spelling and grammar
+    aspell
+    aspellDicts.en
+    aspellDicts.en-science
+    aspellDicts.en-computers
+
     # compression
     unzip
 
@@ -39,11 +45,23 @@
     # browser
     firefox
 
+    # Fonts
+    julia-mono
+    iosevka-bin
+    (iosevka-bin.override {
+      variant = "Aile";
+    })
+    (iosevka-bin.override {
+      variant = "Slab";
+    })
+    (iosevka-bin.override {
+      variant = "SGr-IosevkaTermSS09";
+    })
+    (nerdfonts.override {fonts = ["FiraCode"];})
+
     # language toolchains
+    # NOTE: Really, these should be installed as dev dependencies in a direnv
     julia-bin
-    clang
-    rustup
-    cmake
 
     # editors
     neovim
@@ -56,14 +74,11 @@
     nil
 
     # chat
-    (pkgs.discord.override {
+    (discord.override {
       withOpenASAR = true;
       withVencord = true;
     })
     slack
-
-    # fonts
-    iosevka
 
     # tools
     protonup-qt
@@ -74,6 +89,8 @@
     # games
     osu-lazer
   ];
+
+  # Iosevka
 
   # VSCode
   programs.vscode = {
@@ -92,6 +109,8 @@
       catppuccin.catppuccin-vsc
       catppuccin.catppuccin-vsc-icons
       yzhang.markdown-all-in-one
+      mkhl.direnv
+      ms-python.python
     ];
     userSettings = {
       "editor.formatOnSave" = true;
@@ -391,8 +410,11 @@
   # Emacs
   programs.emacs = {
     enable = true;
-    package = pkgs.emacs-pgtk;
+    package = pkgs.emacs-gtk;
+    extraPackages = epkgs: [epkgs.vterm];
   };
+
+  programs.direnv.enable = true;
 
   # NixOS State Version for Home
   home.stateVersion = "23.11";
