@@ -25,10 +25,7 @@
     tmux
 
     # Spelling and grammar
-    aspell
-    aspellDicts.en
-    aspellDicts.en-science
-    aspellDicts.en-computers
+    (aspellWithDicts (dicts: with dicts; [en en-computers en-science]))
 
     # compression
     unzip
@@ -411,7 +408,7 @@
   programs.emacs = {
     enable = true;
     package = pkgs.emacs-gtk;
-    extraPackages = epkgs: [epkgs.vterm];
+    extraPackages = epkgs: [epkgs.vterm epkgs.pdf-tools];
   };
 
   programs.direnv.enable = true;
