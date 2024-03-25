@@ -79,6 +79,7 @@
 
     # tools
     protonup-qt
+    kicad
 
     # pretty
     lightly-qt
