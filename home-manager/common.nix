@@ -1,5 +1,5 @@
 # Common home-manager settings
-{pkgs, ...}: {
+{...}: {
   # Set my home directory
   home = {
     username = "kiran";

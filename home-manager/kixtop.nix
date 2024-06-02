@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, ...}: {
   imports = [./common.nix];
 
   # Enable syncthing tray

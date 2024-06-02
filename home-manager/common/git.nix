@@ -1,5 +1,5 @@
 # Git config
-{pkgs, ...}: {
+{...}: {
   programs.git = {
     enable = true;
     userName = "Kiran Shila";

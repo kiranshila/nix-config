@@ -1,5 +1,5 @@
 # EMail (Thunderbird)
-{pkgs, ...}: {
+{...}: {
   accounts.email.accounts = {
     "me@kiranshila.com" = {
       primary = true;

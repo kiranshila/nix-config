@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{...}: {
   # Emacs
   # Doom will be configured externally
   programs.emacs = {
