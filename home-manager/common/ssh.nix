@@ -8,6 +8,10 @@
         proxyJump = "ssh.ovro.caltech.edu";
         user = "user";
       };
+
+      "github.com" = {
+        user = "git";
+      };
     };
   };
 }
