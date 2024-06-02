@@ -1,5 +1,7 @@
 {
   description = "Kiran's NixOS Config";
+
+  # Sources for all nix flakes that make up the config
   inputs = {
     # NixPkgs unstable
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -14,6 +16,7 @@
     # Nix vscode extensions
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
   };
+
   outputs = {
     self,
     nixpkgs,
@@ -23,20 +26,41 @@
     ...
   } @ inputs: let
     inherit (self) outputs;
-  in {
-    # Your custom packages and modifications, exported as overlays
-    overlays = import ./overlays {inherit inputs;};
 
-    # NixOS configuration entrypoint
-    # Available through `nixos-rebuild --flake .#hostname`
-    nixosConfigurations.kixtop = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      # Pass flake inputs to our config
-      specialArgs = {inherit inputs outputs;};
-      modules = [
-        # Our main nixos config file
-        ./nixos/configuration.nix
-      ];
+    # A function to automatically set the hostname and hostname-derived config
+    commonModules = name: [
+      ./hosts/base.nix
+      {networking.hostName = name;}
+      {
+        home-manager = {
+          extraSpecialArgs = {inherit inputs outputs;};
+          useUserPackages = true;
+          useGlobalPkgs = true;
+          users = {
+            kiran = import ./home-manager/${name}.nix;
+          };
+        };
+      }
+      ./hosts/${name}.nix
+    ];
+
+    # A function to create the NixOS sytem
+    mkSystem = name: cfg:
+      nixpkgs.lib.nixosSystem {
+        system = cfg.system or "x86_64-linux";
+        modules = (commonModules name) ++ (cfg.modules or []);
+        specialArgs = {inherit inputs outputs;};
+      };
+
+    # The systems we'll configure
+    systems = {
+      # My home desktop
+      kix = {};
+      # My framework laptop
+      kixtop = {};
     };
+  in {
+    # Build the systems
+    nixosConfigurations = nixpkgs.lib.mapAttrs mkSystem systems;
   };
 }

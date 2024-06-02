@@ -1,4 +1,4 @@
-# Base OS Configuration
+# Base NixOS system config to be inherited by all systems
 {
   inputs,
   outputs,
@@ -8,14 +8,7 @@
   ...
 }: {
   imports = [
-    # Framework Laptop 11th Gen Intel
-    inputs.hardware.nixosModules.framework-11th-gen-intel
-
-    # Import the generated hardware configuration
-    # Filesystem, initd, etc.
-    ./hardware-configuration.nix
-
-    # Import home-manager's NixOS module
+    # Bring in home manager
     inputs.home-manager.nixosModules.home-manager
   ];
 
@@ -36,9 +29,8 @@
     magicOrExtension = ''\x7fELF....AI\x02'';
   };
 
-  # Setup networking
+  # Setup networking and syncthing ports
   networking = {
-    hostName = "kixtop";
     networkmanager.enable = true;
     # Syncthing ports:
     # 22000 TCP and/or UDP for sync traffic
@@ -67,11 +59,6 @@
     };
   };
 
-  # KDE Setup
-  services.desktopManager = {
-    plasma6.enable = true;
-  };
-
   # X Server Setup (KDE Plasma and SDDM)
   services.xserver = {
     enable = true;
@@ -81,24 +68,25 @@
     };
   };
 
+  # Use SDDM
   services.displayManager.sddm = {
     enable = true;
-    wayland.enable = true;
   };
 
-  # Printing
-  services.printing = {
-    enable = true;
-    drivers = [
-      pkgs.hplip
-    ];
+  # Use KDE Plasma 6
+  services.desktopManager = {
+    plasma6.enable = true;
   };
 
-  # Enable bluetooth
-  hardware.bluetooth = {
+  # OpenGL
+  hardware.opengl = {
     enable = true;
-    powerOnBoot = false;
+    driSupport = true;
+    driSupport32Bit = true;
   };
+
+  # Enable CUPS to print documents.
+  services.printing.enable = true;
 
   # Linux <3 Sound
   sound.enable = true;
@@ -110,9 +98,13 @@
     pulse.enable = true;
   };
 
-  # Security
-  security.rtkit.enable = true;
+  # Enable bluetooth
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = false;
+  };
 
+  # Nixpkgs Configuration
   nixpkgs = {
     # Setup the overlays
     overlays = [
@@ -167,7 +159,7 @@
     ];
   };
 
-  # Systemwide user settings
+  # Kiran is always the default user
   users.users = {
     kiran = {
       isNormalUser = true;
@@ -175,6 +167,9 @@
       extraGroups = ["wheel" "networkmanager" "dialout"];
     };
   };
+
+  # Security
+  security.rtkit.enable = true;
 
   # Launch fish unless the parent process is fish (keeping bash as system shell)
   # This gets around a bug with fish not being quite posix
@@ -191,27 +186,12 @@
   # Enable completions
   programs.fish.enable = true;
 
-  # Setup home manager
-  home-manager = {
-    extraSpecialArgs = {inherit inputs outputs;};
-    users = {
-      # Import your home-manager configuration
-      kiran = import ../home-manager/home.nix;
-    };
-    # Packages installed to /etc/profiles
-    useUserPackages = true;
-    # Use the global pkgs configured with the system
-    useGlobalPkgs = true;
-  };
-
-  # Fundamental system packages
+  # Some barebones programs everyone needs
   environment.systemPackages = with pkgs; [
-    # Flakes clones its dependencies through the git command,
-    # so git must be installed first
-    git
     wget
     curl
     vim
+    alejandra
   ];
 
   # Set the default editor to vim
@@ -219,31 +199,6 @@
 
   # Make dirty binaries "just work"
   programs.nix-ld.enable = true;
-
-  # Configure syncthing here until
-  # https://github.com/nix-community/home-manager/issues/4049
-  # gets fixed
-  services.syncthing = {
-    enable = true;
-    user = "kiran";
-    dataDir = "/home/kiran/sync";
-    configDir = "/home/kiran/.config/syncthing";
-    overrideDevices = true;
-    overrideFolders = true;
-    settings = {
-      devices = {
-        "Work" = {id = "SLZVNXV-SVWL2PN-H7JFQBN-UVH33AK-HPZDKGO-QMJ3SNM-TEKCANG-SXN7DQM";};
-        "Home" = {id = "HVJWGBC-Q5YPP5V-XHM7XHL-M3DGVX7-SSGQVQQ-KKA7BLS-HYRXQDC-II3QSQ4";};
-        "NAS" = {id = "PQRDY3U-HFLWGDI-B5KSHL2-ICXC6SM-WYPGZZ5-F553F3T-ZCYPSUR-STUJ5A4";};
-      };
-      folders = {
-        "apybf-p3tmn" = {
-          path = "/home/kiran/sync";
-          devices = ["NAS" "Home" "Work"];
-        };
-      };
-    };
-  };
 
   # Enable hardware support for yubikey/smartcards
   services.pcscd.enable = true;
@@ -272,7 +227,4 @@
     # FT4232HA
     SUBSYSTEM=="usb", ATTR{idVendor}=="0403", ATTR{idProduct}=="6048", GROUP="dialout", MODE="0664"
   '';
-
-  # NixOS "State Version"
-  system.stateVersion = "23.11";
 }
