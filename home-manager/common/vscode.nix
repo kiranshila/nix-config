@@ -29,6 +29,7 @@
       "editor.fontLigatures" = true;
       "workbench.startupEditor" = "none";
       "git.enableSmartCommit" = true;
+      "git.confirmSync" = false;
       "workbench.colorTheme" = "Catppuccin Macchiato";
       "workbench.iconTheme" = "catppuccin-macchiato";
       "terminal.integrated.commandsToSkipShell" = [
