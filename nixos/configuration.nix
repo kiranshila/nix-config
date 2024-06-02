@@ -26,6 +26,16 @@
     systemd-boot.configurationLimit = 10;
   };
 
+  # Set the interpreter for AppImages
+  boot.binfmt.registrations.appimage = {
+    wrapInterpreterInShell = false;
+    interpreter = "${pkgs.appimage-run}/bin/appimage-run";
+    recognitionType = "magic";
+    offset = 0;
+    mask = ''\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff'';
+    magicOrExtension = ''\x7fELF....AI\x02'';
+  };
+
   # Setup networking
   networking = {
     hostName = "kixtop";
@@ -65,14 +75,15 @@
   # X Server Setup (KDE Plasma and SDDM)
   services.xserver = {
     enable = true;
-    displayManager.sddm = {
-      enable = true;
-      wayland.enable = true;
-    };
     xkb = {
       layout = "us";
       variant = "";
     };
+  };
+
+  services.displayManager.sddm = {
+    enable = true;
+    wayland.enable = true;
   };
 
   # Printing

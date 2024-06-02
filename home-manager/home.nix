@@ -86,6 +86,7 @@
 
     # games
     osu-lazer
+    openttd
   ];
 
   # Iosevka
