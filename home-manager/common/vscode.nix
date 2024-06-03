@@ -30,6 +30,7 @@
       "workbench.startupEditor" = "none";
       "git.enableSmartCommit" = true;
       "git.confirmSync" = false;
+      "git.autofetch" = true;
       "workbench.colorTheme" = "Catppuccin Macchiato";
       "workbench.iconTheme" = "catppuccin-macchiato";
       "terminal.integrated.commandsToSkipShell" = [
