@@ -11,6 +11,7 @@
     # Various hardware tweaks
     inputs.hardware.nixosModules.common-cpu-intel
     inputs.hardware.nixosModules.common-pc-ssd
+    inputs.hardware.nixosModules.common-hidpi
 
     # Import the generated hardware configuration
     # Filesystem, initd, etc.
