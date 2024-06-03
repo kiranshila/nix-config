@@ -41,15 +41,15 @@
     kernelParams = [
       "intel_iommu=on"
       "iommu=pt"
-      "vfio-pci.ids=10de:1c31,10de:10f1"
+      #"vfio-pci.ids=10de:1c31,10de:10f1"
     ];
 
     # VFIO kernel modules
     initrd.kernelModules = [
       # Explicitly load VFIO before nvidia so the driver doesn't grab control before vfio
-      "vfio_pci"
-      "vfio"
-      "vfio_iommu_type1"
+      #"vfio_pci"
+      #"vfio"
+      #"vfio_iommu_type1"
 
       #      "nvidia"
       #      "nvidia_uvm"
