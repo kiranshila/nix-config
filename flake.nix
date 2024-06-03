@@ -7,14 +7,22 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # Home Manager
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Hardware Definitions
     hardware.url = "github:NixOS/nixos-hardware";
 
     # Nix vscode extensions
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+
+    # NixVirt
+    nix-virt = {
+      url = "https://flakehub.com/f/AshleyYakeley/NixVirt/0.5.0.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -23,13 +31,14 @@
     home-manager,
     hardware,
     nix-vscode-extensions,
+    nix-virt,
     ...
   } @ inputs: let
     inherit (self) outputs;
 
     # A function to automatically set the hostname and hostname-derived config
     commonModules = name: [
-      ./hosts/base.nix
+      ./hosts/common.nix
       {networking.hostName = name;}
       {
         home-manager = {

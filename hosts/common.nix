@@ -1,4 +1,4 @@
-# Base NixOS system config to be inherited by all systems
+# Common NixOS system config to be inherited by all systems
 {
   inputs,
   outputs,
@@ -164,7 +164,7 @@
     kiran = {
       isNormalUser = true;
       description = "Kiran Shila";
-      extraGroups = ["wheel" "networkmanager" "dialout"];
+      extraGroups = ["wheel" "networkmanager" "dialout" "libvirtd"];
     };
   };
 
@@ -212,6 +212,9 @@
   # Enable Xbox One controller drivers
   hardware.xone.enable = true;
 
+  # Enable partition manager (needs dbus, so system-leve)
+  programs.partition-manager.enable = true;
+
   # Udev rules for USB things like tigard
   services.udev.extraRules = ''
       # FT232AM/FT232BM/FT232R
@@ -227,4 +230,32 @@
     # FT4232HA
     SUBSYSTEM=="usb", ATTR{idVendor}=="0403", ATTR{idProduct}=="6048", GROUP="dialout", MODE="0664"
   '';
+
+  # Try to mount NFS store
+  fileSystems."/mnt/storage" = {
+    device = "192.168.4.202:/volume1/storage";
+    fsType = "nfs";
+    options = ["nfsvers=4.1" "x-systemd.automount" "noauto" "x-systemd.idle-timeout=600"];
+  };
+
+  # Virtualization
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu = {
+      package = pkgs.qemu_kvm;
+      runAsRoot = true;
+      swtpm.enable = true;
+      ovmf = {
+        enable = true;
+        packages = [
+          (pkgs.OVMF.override {
+            secureBoot = true;
+            tpmSupport = true;
+          })
+          .fd
+        ];
+      };
+    };
+  };
+  programs.virt-manager.enable = true;
 }
