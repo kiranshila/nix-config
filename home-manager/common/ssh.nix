@@ -10,6 +10,11 @@
   programs.ssh = {
     enable = true;
     matchBlocks = {
+      "*" = {
+        identitiesOnly = true;
+        identityFile = "~/.ssh/id_rsa_yubikey.pub";
+      };
+
       "grex" = {
         hostname = "grex.ovro.pvt";
         proxyJump = "ssh.ovro.caltech.edu";
@@ -18,8 +23,6 @@
 
       "github.com" = {
         user = "git";
-        identitiesOnly = true;
-        identityFile = "~/.ssh/id_rsa_yubikey.pub";
       };
     };
   };

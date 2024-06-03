@@ -30,7 +30,6 @@
       "workbench.startupEditor" = "none";
       "git.enableSmartCommit" = true;
       "git.confirmSync" = false;
-      "git.path" = "/etc/profiles/per-user/kiran/bin/git";
       "workbench.colorTheme" = "Catppuccin Macchiato";
       "workbench.iconTheme" = "catppuccin-macchiato";
       "terminal.integrated.commandsToSkipShell" = [
