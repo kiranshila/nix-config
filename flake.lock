@@ -69,26 +69,6 @@
         "type": "github"
       }
     },
-    "nix-virt": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "nixpkgs-ovmf": "nixpkgs-ovmf"
-      },
-      "locked": {
-        "lastModified": 1712439808,
-        "narHash": "sha256-QoONoZPBpNTw5cia05QSvDlaxXo3moKAJQOw7c5hMXA=",
-        "rev": "9f1cdca730d92461075709e867c1e9ad93d58a8d",
-        "revCount": 284,
-        "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/AshleyYakeley/NixVirt/0.5.0/018eb55e-7beb-75c5-919f-5b5b26136e06/source.tar.gz"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://flakehub.com/f/AshleyYakeley/NixVirt/0.5.0.tar.gz"
-      }
-    },
     "nix-vscode-extensions": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -157,13 +137,33 @@
         "type": "github"
       }
     },
+    "nixvirt": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "nixpkgs-ovmf": "nixpkgs-ovmf"
+      },
+      "locked": {
+        "lastModified": 1712439808,
+        "narHash": "sha256-QoONoZPBpNTw5cia05QSvDlaxXo3moKAJQOw7c5hMXA=",
+        "rev": "9f1cdca730d92461075709e867c1e9ad93d58a8d",
+        "revCount": 284,
+        "type": "tarball",
+        "url": "https://api.flakehub.com/f/pinned/AshleyYakeley/NixVirt/0.5.0/018eb55e-7beb-75c5-919f-5b5b26136e06/source.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://flakehub.com/f/AshleyYakeley/NixVirt/0.5.0.tar.gz"
+      }
+    },
     "root": {
       "inputs": {
         "hardware": "hardware",
         "home-manager": "home-manager",
-        "nix-virt": "nix-virt",
         "nix-vscode-extensions": "nix-vscode-extensions",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_2",
+        "nixvirt": "nixvirt"
       }
     },
     "systems": {

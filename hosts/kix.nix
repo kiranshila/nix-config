@@ -11,11 +11,13 @@
     # Various hardware tweaks
     inputs.hardware.nixosModules.common-cpu-intel
     inputs.hardware.nixosModules.common-pc-ssd
-    inputs.hardware.nixosModules.common-hidpi
 
     # Import the generated hardware configuration
     # Filesystem, initd, etc.
     ../hardware/kix.nix
+
+    # Windows 11 VM
+    ../virtualization/win11/win11.nix
   ];
 
   # Set the default session to X11 because NVIDIA
@@ -28,7 +30,7 @@
   services.xserver.videoDrivers = ["nvidia"];
   hardware.nvidia = {
     modesetting.enable = true;
-    powerManagement.enable = false;
+    powerManagement.enable = true;
     powerManagement.finegrained = false;
     open = false;
     nvidiaSettings = true;
@@ -41,20 +43,20 @@
     kernelParams = [
       "intel_iommu=on"
       "iommu=pt"
-      #"vfio-pci.ids=10de:1c31,10de:10f1"
     ];
 
     # VFIO kernel modules
     initrd.kernelModules = [
-      # Explicitly load VFIO before nvidia so the driver doesn't grab control before vfio
-      #"vfio_pci"
-      #"vfio"
-      #"vfio_iommu_type1"
-
-      #      "nvidia"
-      #      "nvidia_uvm"
-      #    "nvidia_drm"
+      "vfio_pci"
+      "vfio"
+      "vfio_iommu_type1"
     ];
+
+    # These must be baked into the initrd image, kernel params pick them up too lake because nvidia
+    extraModprobeConfig = ''
+      softdep nvidia pre: vfio-pci
+      options vfio-pci ids=10de:1c31,10de:10f1
+    '';
   };
 
   # NixOS "State Version"

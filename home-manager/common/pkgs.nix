@@ -13,6 +13,7 @@
     fd
     tldr
     tmux
+    pciutils
 
     # Spelling and grammar
     (aspellWithDicts (dicts: with dicts; [en en-computers en-science]))
@@ -49,9 +50,6 @@
     # language toolchains
     # NOTE: Really, these should be installed as dev dependencies in a direnv
     julia-bin
-
-    # notetaking
-    obsidian
 
     # nix tools
     any-nix-shell

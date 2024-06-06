@@ -19,7 +19,7 @@
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
     # NixVirt
-    nix-virt = {
+    nixvirt = {
       url = "https://flakehub.com/f/AshleyYakeley/NixVirt/0.5.0.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -31,7 +31,7 @@
     home-manager,
     hardware,
     nix-vscode-extensions,
-    nix-virt,
+    nixvirt,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -39,6 +39,7 @@
     # A function to automatically set the hostname and hostname-derived config
     commonModules = name: [
       ./hosts/common.nix
+      inputs.nixvirt.nixosModules.default
       {networking.hostName = name;}
       {
         home-manager = {
