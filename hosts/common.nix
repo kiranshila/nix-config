@@ -204,6 +204,9 @@
   services.pcscd.enable = true;
   hardware.gpgSmartcards.enable = true;
 
+  # Enables GnuPG agent with socket-activation for every user session.
+  programs.gnupg.agent.enable = true;
+
   # Enable steam
   # NOTE: This is system-level because of how steam needs 32-bit binaries,
   # which must be installed systemwide
