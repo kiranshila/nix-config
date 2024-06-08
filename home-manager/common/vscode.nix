@@ -47,6 +47,7 @@
       "julia.execution.resultType" = "inline, errors in REPL";
       "julia.symbolCacheDownload" = true;
       "julia.enableTelemetry" = false;
+      "remote.SSH.useLocalServer" = true;
     };
   };
 }
