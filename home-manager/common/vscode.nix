@@ -6,19 +6,23 @@
     enableUpdateCheck = false;
     package = pkgs.vscodium;
     mutableExtensionsDir = false;
-    extensions = with pkgs.vscode-marketplace; [
-      julialang.language-julia
-      rust-lang.rust-analyzer
-      tamasfe.even-better-toml
-      serayuzgur.crates
-      jnoortheen.nix-ide
-      kamadorueda.alejandra
-      catppuccin.catppuccin-vsc
-      catppuccin.catppuccin-vsc-icons
-      yzhang.markdown-all-in-one
-      mkhl.direnv
-      ms-python.python
-    ];
+    extensions = with pkgs.vscode-marketplace;
+      [
+        julialang.language-julia
+        rust-lang.rust-analyzer
+        tamasfe.even-better-toml
+        serayuzgur.crates
+        jnoortheen.nix-ide
+        kamadorueda.alejandra
+        catppuccin.catppuccin-vsc
+        catppuccin.catppuccin-vsc-icons
+        yzhang.markdown-all-in-one
+        mkhl.direnv
+        ms-python.python
+      ]
+      ++ [
+        pkgs.open-vsx.jeanp413.open-remote-ssh
+      ];
     userSettings = {
       "editor.formatOnSave" = true;
       "window.zoomLevel" = 1;

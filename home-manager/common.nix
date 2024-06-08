@@ -21,6 +21,9 @@
   # Enable Direnv
   programs.direnv.enable = true;
 
+  # Enable atuin
+  programs.atuin.enable = true;
+
   # Bring in everything else
   imports = [
     ./common/alacritty.nix
