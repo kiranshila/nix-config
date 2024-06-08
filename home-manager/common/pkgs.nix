@@ -30,9 +30,6 @@
     # monitoring
     htop
 
-    # browser
-    firefox
-
     # Fonts
     julia-mono
     iosevka-bin

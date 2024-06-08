@@ -29,6 +29,7 @@
     ./common/alacritty.nix
     ./common/emacs.nix
     ./common/email.nix
+    ./common/firefox.nix
     ./common/fish.nix
     ./common/git.nix
     ./common/gpg.nix
