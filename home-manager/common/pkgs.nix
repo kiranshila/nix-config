@@ -62,5 +62,8 @@
     # tools
     protonup-qt
     kicad
+    zotero
+    dosfstools
+    mtools
   ];
 }

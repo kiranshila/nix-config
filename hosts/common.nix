@@ -79,10 +79,9 @@
   };
 
   # OpenGL
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
+    enable32Bit = true;
   };
 
   # Enable CUPS to print documents.
@@ -192,6 +191,9 @@
     curl
     vim
     alejandra
+    wineWowPackages.stable
+    winetricks
+    libusb1
   ];
 
   # Set the default editor to vim
@@ -223,18 +225,12 @@
 
   # Udev rules for USB things like tigard
   services.udev.extraRules = ''
-      # FT232AM/FT232BM/FT232R
-    SUBSYSTEM=="usb", ATTR{idVendor}=="0403", ATTR{idProduct}=="6001", GROUP="dialout", MODE="0664"
-    # FT2232C/FT2232D/FT2232H
-    SUBSYSTEM=="usb", ATTR{idVendor}=="0403", ATTR{idProduct}=="6010", GROUP="dialout", MODE="0664"
-    # FT4232/FT4232H
-    SUBSYSTEM=="usb", ATTR{idVendor}=="0403", ATTR{idProduct}=="6011", GROUP="dialout", MODE="0664"
-    # FT232H
-    SUBSYSTEM=="usb", ATTR{idVendor}=="0403", ATTR{idProduct}=="6014", GROUP="dialout", MODE="0664"
-    # FT230X/FT231X/FT234X
-    SUBSYSTEM=="usb", ATTR{idVendor}=="0403", ATTR{idProduct}=="6015", GROUP="dialout", MODE="0664"
-    # FT4232HA
-    SUBSYSTEM=="usb", ATTR{idVendor}=="0403", ATTR{idProduct}=="6048", GROUP="dialout", MODE="0664"
+    # FTDI
+    SUBSYSTEM=="usb", ATTR{idVendor}=="0403", GROUP="dialout", MODE="0666"
+    # Siglent
+    SUBSYSTEM=="usb", ATTR{idVendor}=="f4ec", GROUP="dialout", MODE="0666"
+    # Signal Hound
+    SUBSYSTEM=="usb", ATTR{idVendor}=="2817", GROUP="dialout", MODE="0666",
   '';
 
   # Try to mount NFS store
@@ -246,24 +242,24 @@
 
   # Virtualization
   virtualisation = {
-    # spiceUSBRedirection.enable = true;
+    spiceUSBRedirection.enable = true;
     libvirtd = {
       enable = true;
-      # qemu = {
-      #   package = pkgs.qemu_kvm;
-      #   runAsRoot = true;
-      #   swtpm.enable = true;
-      #   ovmf = {
-      #     enable = true;
-      #     packages = [
-      #       (pkgs.OVMF.override {
-      #         secureBoot = true;
-      #         tpmSupport = true;
-      #       })
-      #       .fd
-      #     ];
-      #   };
-      # };
+      qemu = {
+        package = pkgs.qemu_kvm;
+        runAsRoot = true;
+        swtpm.enable = true;
+        ovmf = {
+          enable = true;
+          packages = [
+            (pkgs.OVMF.override {
+              secureBoot = true;
+              tpmSupport = true;
+            })
+            .fd
+          ];
+        };
+      };
     };
   };
   programs.virt-manager.enable = true;

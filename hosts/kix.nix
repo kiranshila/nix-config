@@ -15,9 +15,6 @@
     # Import the generated hardware configuration
     # Filesystem, initd, etc.
     ../hardware/kix.nix
-
-    # Windows 11 VM
-    ../virtualization/win11/win11.nix
   ];
 
   # Set the default session to X11 because NVIDIA
