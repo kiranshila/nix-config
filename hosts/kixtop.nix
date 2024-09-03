@@ -60,7 +60,7 @@
       wg0 = {
         ips = ["10.10.10.3/24"];
         listenPort = 51820;
-        privateKeyFile = "/home/kiran/sync/wireguard/kixtop_private";
+        privateKeyFile = "/home/kiran/sync/Keys/wireguard/kixtop_private";
         peers = [
           {
             publicKey = "ir9VitpGaipQ3183crPzbI0D4JTNR+lKZmuv2CnG51U=";
