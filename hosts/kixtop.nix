@@ -53,18 +53,20 @@
 
   # VPN
   networking = {
-    firewall = {
-      allowedUDPPorts = [51820];
-    };
-    wireguard.interfaces = {
+    wg-quick.interfaces = {
       wg0 = {
-        ips = ["10.10.10.3/24"];
+        # Determines the IP/IPv6 address and subnet of the client's end of the tunnel interface
+        address = ["10.10.10.3/24"];
+        dns = ["10.10.10.1"];
+        # The port that WireGuard listens to - recommended that this be changed from default
         listenPort = 51820;
+        # Path to the server's private key
         privateKeyFile = "/home/kiran/sync/Keys/wireguard/kixtop_private";
+        # Point to server
         peers = [
           {
             publicKey = "ir9VitpGaipQ3183crPzbI0D4JTNR+lKZmuv2CnG51U=";
-            allowedIPs = ["0.0.0.0/0"];
+            allowedIPs = ["0.0.0.0/0" "::/0"];
             endpoint = "vpn.kiranshila.com:51820";
             persistentKeepalive = 25;
           }
