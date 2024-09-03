@@ -88,7 +88,6 @@
   services.printing.enable = true;
 
   # Linux <3 Sound
-  sound.enable = true;
   hardware.pulseaudio.enable = false;
   services.pipewire = {
     enable = true;
@@ -231,6 +230,12 @@
     SUBSYSTEM=="usb", ATTR{idVendor}=="f4ec", GROUP="dialout", MODE="0666"
     # Signal Hound
     SUBSYSTEM=="usb", ATTR{idVendor}=="2817", GROUP="dialout", MODE="0666",
+    # LadyBug
+    SUBSYSTEM=="usb", ATTR{idVendor}=="1a0d", GROUP="dialout", MODE="0666",
+    # MiniCircuits
+    SUBSYSTEM=="usb", ATTR{idVendor}=="20ce", GROUP="dialout", MODE="0666",
+    # National Instruments
+    SUBSYSTEM=="usb", ATTR{idVendor}=="3923", GROUP="dialout", MODE="0666",
   '';
 
   # Try to mount NFS store

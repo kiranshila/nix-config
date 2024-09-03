@@ -65,5 +65,7 @@
     zotero
     dosfstools
     mtools
+    cachix
+    usbutils
   ];
 }

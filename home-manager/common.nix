@@ -26,7 +26,6 @@
 
   # Bring in everything else
   imports = [
-    ./common/alacritty.nix
     ./common/emacs.nix
     ./common/email.nix
     ./common/firefox.nix

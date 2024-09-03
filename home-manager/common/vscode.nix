@@ -48,6 +48,7 @@
       "julia.symbolCacheDownload" = true;
       "julia.enableTelemetry" = false;
       "remote.SSH.useLocalServer" = true;
+      "rust-analyzer.server.path" = "rust-analyzer"; # don't automatically download binary but use local one
     };
   };
 }
