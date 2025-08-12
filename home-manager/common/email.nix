@@ -8,11 +8,11 @@
       userName = "me@kiranshila.com";
       realName = "Kiran Shila";
       imap = {
-        host = "box.kiranshila.com";
+        host = "imap.migadu.com";
         port = 993;
       };
       smtp = {
-        host = "box.kiranshila.com";
+        host = "smtp.migadu.com";
         port = 465;
       };
     };

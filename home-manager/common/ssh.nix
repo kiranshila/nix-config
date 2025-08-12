@@ -24,6 +24,12 @@
       "github.com" = {
         user = "git";
       };
+
+      "sprite" = {
+        user = "sprite";
+        hostname = "turtle.ovro.pvt";
+        proxyJump = "ovro";
+      };
     };
   };
 }

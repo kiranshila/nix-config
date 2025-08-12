@@ -70,8 +70,9 @@
     usbutils
     eza
     obsidian
-
-    # compiler tooling
-    clang-tools
+    julia-bin
+    pdf2svg
+    poppler
+    zoom-us
   ];
 }

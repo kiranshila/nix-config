@@ -77,10 +77,6 @@
     enable = true;
   };
 
-  # And setup kwallet
-  security.pam.services.login.enableKwallet = true;
-  security.pam.services.sddm.enableKwallet = true;
-
   # Use KDE Plasma 6
   services.desktopManager = {
     plasma6.enable = true;
@@ -96,7 +92,6 @@
   services.printing.enable = true;
 
   # Linux <3 Sound
-  services.pulseaudio.enable = false;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -108,6 +103,12 @@
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = false;
+    settings = {
+      General = {
+        Experimental = true;
+        Enable = "Source,Sink,Media,Socket";
+      };
+    };
   };
 
   # Nixpkgs Configuration
@@ -164,13 +165,16 @@
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
   };
-
-  # Kiran is always the default user
-  users.users = {
-    kiran = {
-      isNormalUser = true;
-      description = "Kiran Shila";
-      extraGroups = ["wheel" "networkmanager" "dialout" "libvirtd"];
+  users = {
+    # Define the plugdev group
+    groups.plugdev = {};
+    # Kiran is always the default user
+    users = {
+      kiran = {
+        isNormalUser = true;
+        description = "Kiran Shila";
+        extraGroups = ["wheel" "networkmanager" "plugdev" "libvirtd" "dialout"];
+      };
     };
   };
 
@@ -205,6 +209,9 @@
     libimobiledevice
     ifuse
   ];
+
+  # Use /var/tmp instead of the default to get more than the RAM size for nix builds
+  systemd.services.nix-daemon.environment.TMPDIR = "/var/tmp";
 
   # Support iPhone tethering, etc
   services.usbmuxd = {
@@ -242,21 +249,25 @@
   # Udev rules for USB things like tigard
   services.udev.extraRules = ''
     # FTDI
-    SUBSYSTEM=="usb", ATTR{idVendor}=="0403", GROUP="dialout", MODE="0666"
+    SUBSYSTEM=="usb", ATTR{idVendor}=="0403", GROUP="plugdev", MODE="0666"
     # Siglent
-    SUBSYSTEM=="usb", ATTR{idVendor}=="f4ec", GROUP="dialout", MODE="0666"
+    SUBSYSTEM=="usb", ATTR{idVendor}=="f4ec", GROUP="plugdev", MODE="0666"
     # Signal Hound
-    SUBSYSTEM=="usb", ATTR{idVendor}=="2817", GROUP="dialout", MODE="0666",
+    SUBSYSTEM=="usb", ATTR{idVendor}=="2817", GROUP="plugdev", MODE="0666",
     # LadyBug
-    SUBSYSTEM=="usb", ATTR{idVendor}=="1a0d", GROUP="dialout", MODE="0666",
+    SUBSYSTEM=="usb", ATTR{idVendor}=="1a0d", GROUP="plugdev", MODE="0666",
     # MiniCircuits
-    SUBSYSTEM=="usb", ATTR{idVendor}=="20ce", GROUP="dialout", MODE="0666",
+    SUBSYSTEM=="usb", ATTR{idVendor}=="20ce", GROUP="plugdev", MODE="0666",
     # National Instruments
-    SUBSYSTEM=="usb", ATTR{idVendor}=="3923", GROUP="dialout", MODE="0666",
+    SUBSYSTEM=="usb", ATTR{idVendor}=="3923", GROUP="plugdev", MODE="0666",
     # 8BitDo Ultimate
     # ACTION=="add", ATTRS{idVendor}=="2dc8", ATTRS{idProduct}=="3109", RUN+="/sbin/modprobe xpad", RUN+="/bin/sh -c 'echo 2dc8 3109 > /sys/bus/usb/drivers/xpad/new_id'"
     # Rhode and Schwartz
-    SUBSYSTEM=="usb", ATTR{idVendor}=="0aad", GROUP="dialout", MODE="0666",
+    SUBSYSTEM=="usb", ATTR{idVendor}=="0aad", GROUP="plugdev", MODE="0666",
+    # Jlink
+    SUBSYSTEM=="usb", ATTR{idVendor}=="1366", GROUP="plugdev", MODE="0666",
+    # Give hidraw access to all of plugdev
+    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", GROUP="plugdev", MODE="0666", TAG+="uaccess"
   '';
 
   # Enable fwupmgr
