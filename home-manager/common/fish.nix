@@ -19,6 +19,9 @@
         src = pkgs.fishPlugins.done.src;
       }
     ];
+    shellAliases = {
+      ls = "eza";
+    };
   };
 
   # Use starship as the prompt

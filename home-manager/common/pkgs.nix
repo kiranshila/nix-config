@@ -14,6 +14,7 @@
     tldr
     tmux
     pciutils
+    onlyoffice-bin
 
     # Spelling and grammar
     (aspellWithDicts (dicts: with dicts; [en en-computers en-science]))
@@ -42,11 +43,11 @@
     (iosevka-bin.override {
       variant = "SGr-IosevkaTermSS09";
     })
-    (nerdfonts.override {fonts = ["FiraCode"];})
+    nerd-fonts.fira-code
 
     # language toolchains
     # NOTE: Really, these should be installed as dev dependencies in a direnv
-    julia-bin
+    #julia-bin
 
     # nix tools
     any-nix-shell
@@ -67,5 +68,10 @@
     mtools
     cachix
     usbutils
+    eza
+    obsidian
+
+    # compiler tooling
+    clang-tools
   ];
 }

@@ -35,5 +35,6 @@
     ./common/pkgs.nix
     ./common/ssh.nix
     ./common/vscode.nix
+    ./common/helix.nix
   ];
 }

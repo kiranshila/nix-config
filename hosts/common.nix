@@ -19,6 +19,10 @@
     systemd-boot.configurationLimit = 10;
   };
 
+  # Enable all the firmware
+  hardware.enableAllFirmware = true;
+  hardware.enableRedistributableFirmware = true;
+
   # Set the interpreter for AppImages
   boot.binfmt.registrations.appimage = {
     wrapInterpreterInShell = false;
@@ -73,6 +77,10 @@
     enable = true;
   };
 
+  # And setup kwallet
+  security.pam.services.login.enableKwallet = true;
+  security.pam.services.sddm.enableKwallet = true;
+
   # Use KDE Plasma 6
   services.desktopManager = {
     plasma6.enable = true;
@@ -88,7 +96,7 @@
   services.printing.enable = true;
 
   # Linux <3 Sound
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -193,7 +201,16 @@
     wineWowPackages.stable
     winetricks
     libusb1
+    # iPhone
+    libimobiledevice
+    ifuse
   ];
+
+  # Support iPhone tethering, etc
+  services.usbmuxd = {
+    enable = true;
+    package = pkgs.usbmuxd2;
+  };
 
   # Set the default editor to vim
   environment.variables.EDITOR = "vim";
@@ -219,7 +236,7 @@
   # Enable Xbox One controller drivers
   hardware.xone.enable = true;
 
-  # Enable partition manager (needs dbus, so system-leve)
+  # Enable partition manager (needs dbus, so system-level)
   programs.partition-manager.enable = true;
 
   # Udev rules for USB things like tigard
@@ -236,7 +253,14 @@
     SUBSYSTEM=="usb", ATTR{idVendor}=="20ce", GROUP="dialout", MODE="0666",
     # National Instruments
     SUBSYSTEM=="usb", ATTR{idVendor}=="3923", GROUP="dialout", MODE="0666",
+    # 8BitDo Ultimate
+    # ACTION=="add", ATTRS{idVendor}=="2dc8", ATTRS{idProduct}=="3109", RUN+="/sbin/modprobe xpad", RUN+="/bin/sh -c 'echo 2dc8 3109 > /sys/bus/usb/drivers/xpad/new_id'"
+    # Rhode and Schwartz
+    SUBSYSTEM=="usb", ATTR{idVendor}=="0aad", GROUP="dialout", MODE="0666",
   '';
+
+  # Enable fwupmgr
+  services.fwupd.enable = true;
 
   # Try to mount NFS store
   fileSystems."/mnt/storage" = {

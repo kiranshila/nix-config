@@ -19,6 +19,8 @@
         yzhang.markdown-all-in-one
         mkhl.direnv
         ms-python.python
+        llvm-vs-code-extensions.vscode-clangd
+        vadimcn.vscode-lldb
       ]
       ++ [
         pkgs.open-vsx.jeanp413.open-remote-ssh
