@@ -226,7 +226,8 @@
   programs.nix-ld.enable = true;
 
   # Enable hardware support for yubikey/smartcards
-  services.pcscd.enable = true;
+  # Don't use pcscd actually
+  #services.pcscd.enable = false;
   hardware.gpgSmartcards.enable = true;
 
   # Enables GnuPG agent with socket-activation for every user session.
