@@ -1,8 +1,12 @@
 # Extensions and configuration for VSCode
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   programs.vscode = {
     enable = true;
-    package = pkgs.vscodium;
+    package = config.lib.nixGL.wrap pkgs.vscodium;
     mutableExtensionsDir = false;
     profiles.default = {
       enableExtensionUpdateCheck = false;
@@ -10,7 +14,7 @@
       extensions = with pkgs.vscode-marketplace;
         [
           julialang.language-julia
-          rust-lang.rust-analyzer
+          #rust-lang.rust-analyzer
           tamasfe.even-better-toml
           citreae535.sparse-crates
           jnoortheen.nix-ide

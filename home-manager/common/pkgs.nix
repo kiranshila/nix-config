@@ -1,5 +1,10 @@
 # Bare packages that don't need configuration
-{pkgs, ...}: {
+# All graphical programs need to be wrapped with NixGL to work on non-nixos
+{
+  pkgs,
+  config,
+  ...
+}: {
   home.packages = with pkgs; [
     # Very important
     neofetch
@@ -11,10 +16,11 @@
     grc
     fzf
     fd
-    tldr
+    tealdeer
     tmux
     pciutils
-    onlyoffice-bin
+    (config.lib.nixGL.wrap onlyoffice-bin)
+    alejandra
 
     # Spelling and grammar
     (aspellWithDicts (dicts: with dicts; [en en-computers en-science]))
@@ -45,34 +51,31 @@
     })
     nerd-fonts.fira-code
 
-    # language toolchains
-    # NOTE: Really, these should be installed as dev dependencies in a direnv
-    #julia-bin
-
     # nix tools
     any-nix-shell
     nil
 
     # chat
-    (discord.override {
+    (config.lib.nixGL.wrap (discord.override {
       withOpenASAR = true;
       withVencord = true;
-    })
-    slack
+    }))
+    (config.lib.nixGL.wrap slack)
 
     # tools
     protonup-qt
-    kicad
-    zotero
+    (config.lib.nixGL.wrap kicad)
+    (config.lib.nixGL.wrap zotero)
     dosfstools
     mtools
     cachix
     usbutils
     eza
-    obsidian
+    bat
+    (config.lib.nixGL.wrap obsidian)
     julia-bin
     pdf2svg
     poppler
-    zoom-us
+    (config.lib.nixGL.wrap zoom-us)
   ];
 }

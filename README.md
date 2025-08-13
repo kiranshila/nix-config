@@ -13,3 +13,9 @@ To build for home desktop
 ```sh
 sudo nixos-rebuild switch --flake .#kix
 ```
+
+To update home-manager on work desktop
+
+```sh
+home-manager switch --impure
+```

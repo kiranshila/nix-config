@@ -1,6 +1,12 @@
 {pkgs, ...}: {
   imports = [./common.nix];
 
+  # Set my home directory
+  home = {
+    username = "kiran";
+    homeDirectory = "/home/kiran";
+  };
+
   # Enable syncthing tray
   services.syncthing = {
     enable = true;

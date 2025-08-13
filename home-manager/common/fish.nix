@@ -21,6 +21,8 @@
     ];
     shellAliases = {
       ls = "eza";
+      cat = "bat";
+      hms = "home-manager switch --impure";
     };
   };
 

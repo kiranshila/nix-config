@@ -1,11 +1,9 @@
 # Common home-manager settings
-{...}: {
-  # Set my home directory
-  home = {
-    username = "kiran";
-    homeDirectory = "/home/kiran";
-  };
-
+{
+  config,
+  pkgs,
+  ...
+}: {
   # Enable fontconfig
   fonts.fontconfig.enable = true;
 
@@ -22,13 +20,25 @@
   programs.direnv.enable = true;
 
   # Enable atuin
-  programs.atuin.enable = true;
+  # On new deployments, run `atuin login -u kiranshila`
+  # Then run atuin import auto; atuin sync;
+  programs.atuin = {
+    enable = true;
+    settings = {
+      sync_frequency = "5m";
+    };
+  };
 
-  # Bring in everything else
+  # Firefox
+  programs.firefox = {
+    enable = true;
+    package = config.lib.nixGL.wrap pkgs.firefox;
+  };
+
+  # Bring in everything else that might need more configuration
   imports = [
     ./common/emacs.nix
     ./common/email.nix
-    ./common/firefox.nix
     ./common/fish.nix
     ./common/git.nix
     ./common/gpg.nix

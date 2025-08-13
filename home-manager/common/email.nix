@@ -1,5 +1,9 @@
 # EMail (Thunderbird)
-{...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   accounts.email.accounts = {
     "me@kiranshila.com" = {
       primary = true;
@@ -42,6 +46,7 @@
 
   # Thunderbird configuration
   programs.thunderbird = {
+    package = config.lib.nixGL.wrap pkgs.thunderbird;
     enable = true;
     profiles.default = {
       isDefault = true;
@@ -50,6 +55,9 @@
     settings = {
       "privacy.donottrackheader.enabled" = true;
       "mailnews.start_page.enabled" = false;
+      "mailnews.default_view_flags" = 0; # Unthreaded
+      "mailnews.default_sort_order" = 1; # Sort ascending (new messages at bottom)
+      "mail.threadpane.listview" = 1; # List view instead of pane-view
       "mail.default_send_format" = 1; # Plaintext only
       "mail.identity.default.reply_on_top" = 0; # Bottom-reply always
       "mail.identity.default.compose_html" = false; # Never compose HTML
