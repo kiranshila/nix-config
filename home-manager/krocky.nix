@@ -38,6 +38,9 @@
     '';
   };
 
+  # Rocky uses gnome, so switch the pinentry (and wrap with nixgl)
+  services.gpg-agent.pinentry.package = config.lib.nixGL.wrap pkgs.pinentry-gnome3;
+
   # NixOS State Version for Home
   home.stateVersion = "25.05";
 }

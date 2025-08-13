@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   # Configure gpg
   programs.gpg = {
     enable = true;
@@ -49,7 +53,8 @@
     enableBashIntegration = true;
     defaultCacheTtl = 60;
     maxCacheTtl = 120;
-    pinentry.package = pkgs.pinentry-qt;
+    # Set a default, but allow for overrides
+    pinentry.package = lib.mkDefault pkgs.pinentry-qt;
     enableScDaemon = true;
     extraConfig = ''
       ttyname $GPG_TTY
