@@ -43,6 +43,7 @@
           extraSpecialArgs = {inherit inputs outputs nixgl;};
           useUserPackages = true;
           useGlobalPkgs = true;
+          backupFileExtension = "backup";
           users = {
             kiran = import ./home-manager/${name}.nix;
           };
