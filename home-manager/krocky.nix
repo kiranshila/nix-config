@@ -2,6 +2,7 @@
   pkgs,
   config,
   nixgl,
+  lib,
   ...
 }: {
   # Setup NixGL
@@ -40,6 +41,12 @@
 
   # Rocky uses gnome, so switch the pinentry (and wrap with nixgl)
   services.gpg-agent.pinentry.package = config.lib.nixGL.wrap pkgs.pinentry-gnome3;
+
+  # We have to handle the SSH_AUTH_SOCK manually
+  programs.fish.interactiveShellInit = lib.mkAfter ''
+    export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+    gpgconf --launch gpg-agent
+  '';
 
   # NixOS State Version for Home
   home.stateVersion = "25.05";
