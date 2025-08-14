@@ -19,7 +19,7 @@
   };
 
   # Use the pgtk build as kixtop is on wayland
-  programs.emacs.package = config.lib.nixGL.wrap pkgs.emacs-gtk;
+  programs.emacs.package = config.lib.nixGL.wrap pkgs.emacs;
 
   # Setup bash to just launch fish
   programs.bash = {

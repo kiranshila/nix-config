@@ -56,10 +56,7 @@
     nil
 
     # chat
-    (config.lib.nixGL.wrap (discord.override {
-      withOpenASAR = true;
-      withVencord = true;
-    }))
+    (config.lib.nixGL.wrap discord)
     (config.lib.nixGL.wrap slack)
 
     # tools
