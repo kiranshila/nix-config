@@ -28,7 +28,7 @@
     folders = {
       "apybf-p3tmn" = {
         path = "/home/kiran/sync";
-        devices = ["NAS" "Home" "Works"];
+        devices = ["NAS" "Home" "Work"];
       };
     };
   };
