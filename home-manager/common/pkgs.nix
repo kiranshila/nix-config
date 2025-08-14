@@ -56,7 +56,6 @@
     nil
 
     # chat
-    (config.lib.nixGL.wrap discord)
     (config.lib.nixGL.wrap slack)
 
     # tools

@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}: {
   imports = [./common.nix];
 
   # Set my home directory
@@ -32,6 +37,14 @@
       };
     };
   };
+
+  # Kixtop-specific packages
+  home.packages = lib.mkMerge [
+    (with pkgs; [
+      protonup-qt
+      (config.lib.nixGL.wrap pkgs.discord)
+    ])
+  ];
 
   # NixOS State Version for Home
   home.stateVersion = "23.11";
