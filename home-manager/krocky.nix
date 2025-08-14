@@ -18,12 +18,6 @@
     homeDirectory = "/home/kshila";
   };
 
-  # Enable syncthing tray
-  services.syncthing = {
-    enable = true;
-    tray.enable = true;
-  };
-
   # Use the pgtk build as kixtop is on wayland
   programs.emacs.package = config.lib.nixGL.wrap pkgs.emacs-gtk;
 
@@ -47,6 +41,21 @@
     export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
     gpgconf --launch gpg-agent
   '';
+
+  # Add syncthing config to sync to home, laptop, and NAS
+  services.syncthing.settings = {
+    devices = {
+      "Laptop" = {id = "5YNXHAA-3O3C4DV-L23BD6P-R3XMQ73-5YBKUFP-5IQRGQ7-XKTCMLH-UVITPQG";};
+      "Home" = {id = "HVJWGBC-Q5YPP5V-XHM7XHL-M3DGVX7-SSGQVQQ-KKA7BLS-HYRXQDC-II3QSQ4";};
+      "NAS" = {id = "PQRDY3U-HFLWGDI-B5KSHL2-ICXC6SM-WYPGZZ5-F553F3T-ZCYPSUR-STUJ5A4";};
+    };
+    folders = {
+      "apybf-p3tmn" = {
+        path = "/home/kshila/sync";
+        devices = ["NAS" "Home" "Laptop"];
+      };
+    };
+  };
 
   # NixOS State Version for Home
   home.stateVersion = "25.05";

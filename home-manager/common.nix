@@ -44,6 +44,7 @@
     ./common/gpg.nix
     ./common/pkgs.nix
     ./common/ssh.nix
+    ./common/syncthing.nix
     ./common/vscode.nix
     ./common/helix.nix
   ];
