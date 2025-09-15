@@ -17,7 +17,7 @@
       };
 
       "grex" = {
-        hostname = "grex.ovro.pvt";
+        hostname = "grex_ovro.ovro.pvt";
         proxyJump = "ssh.ovro.caltech.edu";
         user = "user";
       };

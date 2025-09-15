@@ -269,6 +269,8 @@
     SUBSYSTEM=="usb", ATTR{idVendor}=="1366", GROUP="plugdev", MODE="0666",
     # Give hidraw access to all of plugdev
     KERNEL=="hidraw*", SUBSYSTEM=="hidraw", GROUP="plugdev", MODE="0666", TAG+="uaccess"
+    # LabJack
+    SUBSYSTEM=="usb", ATTR{idVendor}=="0CD5", GROUP="plugdev", MODE="0666",
   '';
 
   # Enable fwupmgr

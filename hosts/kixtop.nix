@@ -27,6 +27,7 @@
   ];
 
   # VPN
+  # sudo systemctl start wg-quick-wg0.service
   networking.wg-quick.interfaces = {
     wg0 = {
       autostart = false;
