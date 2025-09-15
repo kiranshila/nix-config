@@ -2,12 +2,13 @@
 {
   pkgs,
   config,
+  lib,
   ...
 }: {
   accounts.email.accounts = {
     "me@kiranshila.com" = {
-      primary = true;
-      thunderbird.enable = true;
+      primary = lib.mkDefault true;
+      thunderbird.enable = lib.mkDefault true;
       address = "me@kiranshila.com";
       userName = "me@kiranshila.com";
       realName = "Kiran Shila";

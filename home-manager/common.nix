@@ -16,8 +16,11 @@
   # Enable nix-index
   programs.nix-index.enable = true;
 
-  # Enable Direnv
-  programs.direnv.enable = true;
+  # Enable Direnv using nix-direnv (faster than use_fale)
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
 
   # Enable atuin
   # On new deployments, run `atuin login -u kiranshila`
@@ -42,6 +45,7 @@
     ./common/fish.nix
     ./common/git.nix
     ./common/gpg.nix
+    ./common/kitty.nix
     ./common/pkgs.nix
     ./common/ssh.nix
     ./common/syncthing.nix

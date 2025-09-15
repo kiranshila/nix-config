@@ -37,6 +37,10 @@
     # monitoring
     htop
 
+    # Wine
+    wineWowPackages.stable
+    winetricks
+
     # Fonts
     julia-mono
     iosevka-bin
@@ -73,5 +77,13 @@
     pdf2svg
     poppler
     (config.lib.nixGL.wrap zoom-us)
+
+    # Build tools
+    ninja
+    cmake
+    rustup
+
+    # Remote control
+    (config.lib.nixGL.wrap remmina)
   ];
 }
