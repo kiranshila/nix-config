@@ -14,7 +14,7 @@
       extensions = with pkgs.vscode-marketplace;
         [
           julialang.language-julia
-          #rust-lang.rust-analyzer
+          rust-lang.rust-analyzer
           tamasfe.even-better-toml
           citreae535.sparse-crates
           jnoortheen.nix-ide
