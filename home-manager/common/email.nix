@@ -33,6 +33,14 @@
       address = "kshila@caltech.edu";
       userName = "kshila@caltech.edu";
       realName = "Kiran Shila";
+      signature = {
+        showSignature = "append";
+        text = ''
+          Dr. Kiran Shila (they/them/theirs)
+          Research Engineer | DSA-2000
+          T: +1 813-422-8343
+        '';
+      };
       imap = {
         host = "outlook.office365.com";
         port = 993;
@@ -60,8 +68,9 @@
       "mailnews.default_sort_order" = 1; # Sort ascending (new messages at bottom)
       "mail.threadpane.listview" = 1; # List view instead of pane-view
       "mail.default_send_format" = 1; # Plaintext only
-      "mail.identity.default.reply_on_top" = 0; # Bottom-reply always
+      "mail.identity.default.reply_on_top" = 1; # Top-reply always
       "mail.identity.default.compose_html" = false; # Never compose HTML
+      "mail.identity.default.sig_on_reply" = false; # Don't place signature on reply
     };
   };
 }
