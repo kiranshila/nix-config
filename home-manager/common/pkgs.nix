@@ -65,6 +65,7 @@
     # tools
     protonup-qt
     (config.lib.nixGL.wrap kicad)
+    (config.lib.nixGL.wrap freecad)
     (config.lib.nixGL.wrap zotero)
     dosfstools
     mtools
@@ -82,6 +83,9 @@
     ninja
     cmake
     rustup
+
+    # LSPs
+    taplo
 
     # Remote control
     (config.lib.nixGL.wrap remmina)
