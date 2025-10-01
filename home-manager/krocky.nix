@@ -68,14 +68,6 @@
     };
   };
 
-  # Try out self-hosted Ollama
-  services.ollama = {
-    enable = true;
-    # Wrap in nixGL for CUDA to work
-    package = config.lib.nixGL.wrap pkgs.ollama;
-    acceleration = "cuda";
-  };
-
   # NixOS State Version for Home
   home.stateVersion = "25.05";
 }
