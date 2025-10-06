@@ -16,7 +16,7 @@
   # Enable nix-index
   programs.nix-index.enable = true;
 
-  # Enable Direnv using nix-direnv (faster than use_fale)
+  # Enable Direnv using nix-direnv (faster than use_flake)
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;

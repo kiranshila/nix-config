@@ -18,9 +18,6 @@
     homeDirectory = "/home/kshila";
   };
 
-  # Use the pgtk build as kixtop is on wayland
-  programs.emacs.package = config.lib.nixGL.wrap pkgs.emacs;
-
   # Setup bash to just launch fish
   programs.bash = {
     enable = true;
@@ -46,7 +43,7 @@
   services.syncthing.settings = {
     devices = {
       "Laptop" = {id = "5YNXHAA-3O3C4DV-L23BD6P-R3XMQ73-5YBKUFP-5IQRGQ7-XKTCMLH-UVITPQG";};
-      "Home" = {id = "HVJWGBC-Q5YPP5V-XHM7XHL-M3DGVX7-SSGQVQQ-KKA7BLS-HYRXQDC-II3QSQ4";};
+      "Home" = {id = "FD3VE6H-PABFAI2-KFJTYBN-WDJ4WRZ-XGOSAFB-6IYPQ45-4CJ2NOW-LZB6NA2";};
       "NAS" = {id = "PQRDY3U-HFLWGDI-B5KSHL2-ICXC6SM-WYPGZZ5-F553F3T-ZCYPSUR-STUJ5A4";};
     };
     folders = {

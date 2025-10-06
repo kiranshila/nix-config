@@ -150,7 +150,11 @@
 
   nix.settings = {
     # Enable flakes and new 'nix' command
-    experimental-features = "nix-command flakes";
+    # This should be default now with determinate nix
+    #experimental-features = ["nix-command" "flakes"];
+    # Determinate Nix-specific features
+    extra-experimental-features = "parallel-eval";
+    eval-cores = 0;
     # Deduplicate and optimize nix store
     auto-optimise-store = true;
     # Allow me to specify additional substituters
@@ -159,12 +163,15 @@
     substituters = [
       "https://cache.nixos.org"
       "https://nix-community.cachix.org"
+      "https://kiranshila.cachix.org"
     ];
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "kiranshila.cachix.org-1:S0sidekrlCDb6OdMXMuzj6l6UdI32SyrHBBfAVkA8Mk="
     ];
   };
+
   users = {
     # Define the plugdev group
     groups.plugdev = {};
@@ -283,6 +290,9 @@
     options = ["nfsvers=4.1" "x-systemd.automount" "noauto" "x-systemd.idle-timeout=600"];
   };
 
+  # Enable Zram swap
+  zramSwap.enable = true;
+
   # Virtualization
   virtualisation = {
     spiceUSBRedirection.enable = true;
@@ -292,6 +302,7 @@
         package = pkgs.qemu_kvm;
         runAsRoot = true;
         swtpm.enable = true;
+        vhostUserPackages = [pkgs.virtiofsd];
         ovmf = {
           enable = true;
           packages = [

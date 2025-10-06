@@ -54,6 +54,8 @@
       variant = "SGr-IosevkaTermSS09";
     })
     nerd-fonts.fira-code
+    emacs-all-the-icons-fonts
+    nerd-fonts.symbols-only
 
     # nix tools
     any-nix-shell
@@ -63,7 +65,6 @@
     (config.lib.nixGL.wrap slack)
 
     # tools
-    protonup-qt
     (config.lib.nixGL.wrap kicad)
     (config.lib.nixGL.wrap freecad)
     (config.lib.nixGL.wrap zotero)

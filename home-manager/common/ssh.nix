@@ -16,9 +16,14 @@
         identityFile = "~/.ssh/id_rsa_yubikey.pub";
       };
 
+      "ovro" = {
+        hostname = "ssh.ovro.caltech.edu";
+        user = "kiran";
+      };
+
       "grex" = {
-        hostname = "grex_ovro.ovro.pvt";
-        proxyJump = "ssh.ovro.caltech.edu";
+        hostname = "grex-ovro.ovro.pvt";
+        proxyJump = "ovro";
         user = "user";
       };
 
@@ -29,6 +34,12 @@
       "sprite" = {
         user = "sprite";
         hostname = "turtle.ovro.pvt";
+        proxyJump = "ovro";
+      };
+
+      "mvp03" = {
+        user = "kshila";
+        hostname = "mvp03mncopl.ovro.pvt";
         proxyJump = "ovro";
       };
     };

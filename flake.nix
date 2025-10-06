@@ -16,10 +16,25 @@
     hardware.url = "github:NixOS/nixos-hardware";
 
     # Nix vscode extensions
-    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    nix-vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # NixGL
-    nixgl.url = "github:nix-community/nixGL";
+    nixgl = {
+      url = "github:nix-community/nixGL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Determinate Nix
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
+
+    # Doom Emacs
+    nix-doom = {
+      url = "github:marienz/nix-doom-emacs-unstraightened";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -29,12 +44,15 @@
     hardware,
     nix-vscode-extensions,
     nixgl,
+    determinate,
+    nix-doom,
     ...
   } @ inputs: let
     inherit (self) outputs;
 
     # A function to automatically set the hostname and hostname-derived config
     commonModules = name: [
+      determinate.nixosModules.default
       ./hosts/common.nix
       {networking.hostName = name;}
       {
@@ -44,6 +62,7 @@
           useUserPackages = true;
           useGlobalPkgs = true;
           backupFileExtension = "backup";
+          sharedModules = [nix-doom.homeModule];
           users = {
             kiran = import ./home-manager/${name}.nix;
           };

@@ -18,6 +18,10 @@
         name = "done";
         src = pkgs.fishPlugins.done.src;
       }
+      {
+        name = "bang-bang";
+        src = pkgs.fishPlugins.bang-bang.src;
+      }
     ];
     shellAliases = {
       ls = "eza";

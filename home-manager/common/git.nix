@@ -8,7 +8,7 @@
     difftastic.enable = true;
     signing = {
       key = null;
-      signByDefault = true;
+      signByDefault = false;
     };
     extraConfig = {
       init = {defaultBranch = "main";};

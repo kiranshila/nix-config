@@ -1,8 +1,18 @@
-{...}: {
-  # Emacs
-  # Doom will be configured externally
-  programs.emacs = {
+{
+  config,
+  pkgs,
+  ...
+}: {
+  # Doom Emacs
+  programs.doom-emacs = {
     enable = true;
-    extraPackages = epkgs: [epkgs.vterm epkgs.pdf-tools];
+    doomDir = ./doom;
+    emacs = config.lib.nixGL.wrap pkgs.emacs;
+    extraPackages = epkgs: [
+      epkgs.vterm
+      epkgs.pdf-tools
+      epkgs.treesit-grammars.with-all-grammars
+    ];
+    experimentalFetchTree = true;
   };
 }
