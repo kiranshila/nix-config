@@ -81,7 +81,6 @@
     # Build tools
     ninja
     cmake
-    rustup
 
     # LSPs
     taplo
