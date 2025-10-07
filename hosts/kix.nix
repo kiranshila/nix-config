@@ -17,10 +17,8 @@
     ../hardware/kix.nix
   ];
 
-  # Set the default session to X11 because NVIDIA
-  services.displayManager.defaultSession = "plasmax11";
   services.displayManager.sddm = {
-    wayland.enable = false;
+    wayland.enable = true;
   };
 
   # Setup NVIDIA drivers

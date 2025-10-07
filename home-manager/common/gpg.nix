@@ -9,8 +9,6 @@
     scdaemonSettings = {
       disable-ccid = false; # Don't use PCSC at all, only use smart card with GPG
     };
-    mutableKeys = false;
-    mutableTrust = true;
     # Import my public key and give it ultimate trust
     publicKeys = [
       {

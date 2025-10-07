@@ -14,6 +14,14 @@
     homeDirectory = "/home/kiran";
   };
 
+  # Setup pass
+  programs.password-store = {
+    enable = true;
+    settings = {
+      PASSWORD_STORE_DIR = "/home/kiran/sync/.password-store";
+    };
+  };
+
   # Sync to Work, Laptop, and NAS
   services.syncthing.settings = {
     devices = {
@@ -30,11 +38,9 @@
   };
 
   # Kix-specific packages
-  home.packages = lib.mkMerge [
-    (with pkgs; [
-      protonup-qt
-      pkgs.discord
-    ])
+  home.packages = with pkgs; [
+    protonup-qt
+    pkgs.discord
   ];
 
   # NixOS State Version for Home

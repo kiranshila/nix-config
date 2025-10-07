@@ -65,6 +65,9 @@
     };
   };
 
+  # Emacs to nixgl-ed non-wayland
+  programs.doom-emacs.emacs = config.lib.nixGL.wrap pkgs.emacs;
+
   # NixOS State Version for Home
   home.stateVersion = "25.05";
 }
