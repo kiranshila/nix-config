@@ -41,7 +41,10 @@
     # 21027/UDP for discovery
     # source: https://docs.syncthing.net/users/firewall.html
     firewall.allowedTCPPorts = [22000];
-    firewall.allowedUDPPorts = [22000 21027];
+    firewall.allowedUDPPorts = [
+      22000
+      21027
+    ];
   };
 
   # Setup time
@@ -97,6 +100,20 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    # Setup noise cancellation module
+    extraConfig.pipewire."echo-canellation" = {
+      "context.modules" = [
+        {
+          name = "libpipewire-module-echo-cancel";
+          args = {
+            capture.props.node.name = "Echo Cancellation Capture";
+            source.props.node.name = "Echo Cancellation Source";
+            sink.props.node.name = "Echo Cancellation Sink";
+            playback.props.node.name = "Echo Cancellation Playback";
+          };
+        }
+      ];
+    };
   };
 
   # Enable bluetooth
@@ -128,14 +145,15 @@
 
   # This will add each flake input as a registry
   # To make nix3 commands consistent with your flake
-  nix.registry = (lib.mapAttrs (_: flake: {inherit flake;})) ((lib.filterAttrs (_: lib.isType "flake")) inputs);
+  nix.registry = (lib.mapAttrs (_: flake: {inherit flake;})) (
+    (lib.filterAttrs (_: lib.isType "flake")) inputs
+  );
 
   # This will additionally add your inputs to the system's legacy channels
   # Making legacy nix commands consistent as well, awesome!
   nix.nixPath = ["/etc/nix/path"];
   environment.etc =
-    lib.mapAttrs'
-    (name: value: {
+    lib.mapAttrs' (name: value: {
       name = "nix/path/${name}";
       value.source = value.flake;
     })
@@ -180,7 +198,13 @@
       kiran = {
         isNormalUser = true;
         description = "Kiran Shila";
-        extraGroups = ["wheel" "networkmanager" "plugdev" "libvirtd" "dialout"];
+        extraGroups = [
+          "wheel"
+          "networkmanager"
+          "plugdev"
+          "libvirtd"
+          "dialout"
+        ];
       };
     };
   };
@@ -287,7 +311,12 @@
   fileSystems."/mnt/storage" = {
     device = "192.168.4.202:/volume1/storage";
     fsType = "nfs";
-    options = ["nfsvers=4.1" "x-systemd.automount" "noauto" "x-systemd.idle-timeout=600"];
+    options = [
+      "nfsvers=4.1"
+      "x-systemd.automount"
+      "noauto"
+      "x-systemd.idle-timeout=600"
+    ];
   };
 
   # Enable Zram swap
@@ -303,16 +332,6 @@
         runAsRoot = true;
         swtpm.enable = true;
         vhostUserPackages = [pkgs.virtiofsd];
-        ovmf = {
-          enable = true;
-          packages = [
-            (pkgs.OVMF.override {
-              secureBoot = true;
-              tpmSupport = true;
-            })
-            .fd
-          ];
-        };
       };
     };
   };

@@ -41,6 +41,7 @@
         user = "kshila";
         hostname = "mvp03mncopl.ovro.pvt";
         proxyJump = "ovro";
+        dynamicForwards = [{port = 1080;}];
       };
     };
   };
