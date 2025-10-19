@@ -48,6 +48,16 @@
     "sidebar.verticalTabs" = true;
     "sidebar.animation.expand-on-hover.duration-ms" = 100;
     "sidebar.animation.duration-ms" = 100;
+
+    # Sync
+    "services.sync.username" = "me@kiranshila.com";
+    # Only sync history, bookmarks, tabs
+    "services.sync.declinedEngines" = "addresses,addons,passwords,creditcards,prefs";
+    "services.sync.engine.addons" = false;
+    "services.sync.engine.addresses" = false;
+    "services.sync.engine.prefs" = false;
+    "services.sync.engine.creditcards" = false;
+    "services.sync.engine.passwords" = false; # We're using Pass
   };
 
   search = {
