@@ -3,7 +3,8 @@
   pkgs,
   config,
   ...
-}: {
+}:
+{
   programs.vscode = {
     enable = true;
     package = config.lib.nixGL.wrap pkgs.vscodium;
@@ -11,7 +12,8 @@
     profiles.default = {
       enableExtensionUpdateCheck = false;
       enableUpdateCheck = false;
-      extensions = with pkgs.vscode-marketplace;
+      extensions =
+        with pkgs.vscode-marketplace;
         [
           julialang.language-julia
           rust-lang.rust-analyzer
@@ -19,8 +21,6 @@
           citreae535.sparse-crates
           jnoortheen.nix-ide
           kamadorueda.alejandra
-          catppuccin.catppuccin-vsc
-          catppuccin.catppuccin-vsc-icons
           yzhang.markdown-all-in-one
           mkhl.direnv
           ms-python.python
@@ -46,8 +46,6 @@
         "git.enableSmartCommit" = true;
         "git.confirmSync" = false;
         "git.autofetch" = true;
-        "workbench.colorTheme" = "Catppuccin Macchiato";
-        "workbench.iconTheme" = "catppuccin-macchiato";
         "terminal.integrated.commandsToSkipShell" = [
           "language-julia.interrupt"
         ];

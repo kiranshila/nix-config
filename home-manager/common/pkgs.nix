@@ -4,7 +4,8 @@
   pkgs,
   config,
   ...
-}: {
+}:
+{
   home.packages = with pkgs; [
     # Very important
     neofetch
@@ -14,22 +15,21 @@
     # utils
     ripgrep
     grc
-    fzf
     fd
     tealdeer
     tmux
     pciutils
     (config.lib.nixGL.wrap onlyoffice-bin)
     alejandra
+    veracrypt
 
     # Spelling and grammar
     (aspellWithDicts (
-      dicts:
-        with dicts; [
-          en
-          en-computers
-          en-science
-        ]
+      dicts: with dicts; [
+        en
+        en-computers
+        en-science
+      ]
     ))
 
     # compression
@@ -77,8 +77,6 @@
     mtools
     cachix
     usbutils
-    eza
-    bat
     (config.lib.nixGL.wrap obsidian)
     julia-bin
     pdf2svg

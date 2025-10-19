@@ -6,7 +6,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     # Bring in home manager
     inputs.home-manager.nixosModules.home-manager
@@ -40,7 +41,7 @@
     # 22000 TCP and/or UDP for sync traffic
     # 21027/UDP for discovery
     # source: https://docs.syncthing.net/users/firewall.html
-    firewall.allowedTCPPorts = [22000];
+    firewall.allowedTCPPorts = [ 22000 ];
     firewall.allowedUDPPorts = [
       22000
       21027
@@ -91,9 +92,6 @@
     enable32Bit = true;
   };
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
   # Linux <3 Sound
   services.pipewire = {
     enable = true;
@@ -130,10 +128,6 @@
 
   # Nixpkgs Configuration
   nixpkgs = {
-    # Setup the overlays
-    overlays = [
-      inputs.nix-vscode-extensions.overlays.default
-    ];
     # Configure your nixpkgs instance to allow unfree
     # Sorry, RMS
     config = {
@@ -145,19 +139,17 @@
 
   # This will add each flake input as a registry
   # To make nix3 commands consistent with your flake
-  nix.registry = (lib.mapAttrs (_: flake: {inherit flake;})) (
+  nix.registry = (lib.mapAttrs (_: flake: { inherit flake; })) (
     (lib.filterAttrs (_: lib.isType "flake")) inputs
   );
 
   # This will additionally add your inputs to the system's legacy channels
   # Making legacy nix commands consistent as well, awesome!
-  nix.nixPath = ["/etc/nix/path"];
-  environment.etc =
-    lib.mapAttrs' (name: value: {
-      name = "nix/path/${name}";
-      value.source = value.flake;
-    })
-    config.nix.registry;
+  nix.nixPath = [ "/etc/nix/path" ];
+  environment.etc = lib.mapAttrs' (name: value: {
+    name = "nix/path/${name}";
+    value.source = value.flake;
+  }) config.nix.registry;
 
   # Perform garbage collection weekly to maintain low disk usage
   nix.gc = {
@@ -176,7 +168,7 @@
     # Deduplicate and optimize nix store
     auto-optimise-store = true;
     # Allow me to specify additional substituters
-    trusted-users = ["kiran"];
+    trusted-users = [ "kiran" ];
     # List of substituters
     substituters = [
       "https://cache.nixos.org"
@@ -192,7 +184,7 @@
 
   users = {
     # Define the plugdev group
-    groups.plugdev = {};
+    groups.plugdev = { };
     # Kiran is always the default user
     users = {
       kiran = {
@@ -224,8 +216,13 @@
     '';
   };
 
-  # Enable completions
-  programs.fish.enable = true;
+  # Fish!
+  programs.fish = {
+    enable = true;
+    useBabelfish = true; # Much better startup time
+  };
+
+  programs.command-not-found.enable = false; # Broken with fish
 
   # Some barebones programs everyone needs
   environment.systemPackages = with pkgs; [
@@ -331,9 +328,31 @@
         package = pkgs.qemu_kvm;
         runAsRoot = true;
         swtpm.enable = true;
-        vhostUserPackages = [pkgs.virtiofsd];
+        vhostUserPackages = [ pkgs.virtiofsd ];
       };
     };
   };
   programs.virt-manager.enable = true;
+
+  # Catppuccin NixOS (only handles a few things that are sytem-level)
+  catppuccin = {
+    enable = true;
+    flavor = "macchiato";
+  };
+
+  # Printer setup
+  services = {
+    printing.enable = true;
+    avahi = {
+      enable = true;
+      nssmdns4 = true;
+      openFirewall = true;
+    };
+  };
+
+  # Scanner setup
+  hardware.sane = {
+    enable = true;
+    extraBackends = [ (pkgs.epsonscan2.override { withNonFreePlugins = true; }) ];
+  };
 }

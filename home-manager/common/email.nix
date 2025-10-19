@@ -4,7 +4,8 @@
   config,
   lib,
   ...
-}: {
+}:
+{
   accounts.email.accounts = {
     "me@kiranshila.com" = {
       primary = lib.mkDefault true;
@@ -19,14 +20,6 @@
       smtp = {
         host = "smtp.migadu.com";
         port = 465;
-      };
-
-      # Backends
-      msmtp.enable = true;
-      notmuch.enable = true;
-      mbsync = {
-        enable = true;
-        create = "maildir";
       };
       thunderbird.enable = lib.mkDefault true;
     };
@@ -52,8 +45,6 @@
         port = 587;
         tls.useStartTls = true;
       };
-
-      # Backends
       thunderbird = {
         enable = true;
         settings = id: {
@@ -67,16 +58,6 @@
 
   # Backend Programs
   programs = {
-    mbsync.enable = true;
-    msmtp.enable = true;
-
-    notmuch = {
-      enable = true;
-      hooks = {
-        preNew = "mbsync --all";
-      };
-    };
-
     thunderbird = {
       package = config.lib.nixGL.wrap pkgs.thunderbird;
       enable = true;

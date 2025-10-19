@@ -3,12 +3,12 @@
   pkgs,
   config,
   ...
-}: {
+}:
+{
   programs.kitty = {
     enable = true;
     package = config.lib.nixGL.wrap pkgs.kitty;
     shellIntegration.enableFishIntegration = true;
-    themeFile = "Catppuccin-Macchiato";
     enableGitIntegration = true;
     font = {
       # Pkg providing font already in common/pkgs
