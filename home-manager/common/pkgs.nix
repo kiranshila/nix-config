@@ -68,6 +68,8 @@
 
     # chat
     (config.lib.nixGL.wrap slack)
+    (config.lib.nixGL.wrap musescore)
+    (config.lib.nixGL.wrap muse-sounds-manager)
 
     # tools
     (config.lib.nixGL.wrap kicad)
