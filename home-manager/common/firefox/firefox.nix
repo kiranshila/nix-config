@@ -3,13 +3,11 @@
   config,
   pkgs,
   ...
-}:
-let
+}: let
   # NixGL wrap
   package = config.lib.nixGL.wrap pkgs.firefox;
   profile = "default";
-in
-{
+in {
   home.sessionVariables = {
     DEFAULT_BROWSER = package;
     BROWSER = package;
@@ -19,6 +17,6 @@ in
     inherit package;
     enable = true;
     policies = import ./policies.nix;
-    profiles.${profile} = (import ./profile.nix { inherit lib pkgs config; });
+    profiles.${profile} = import ./profile.nix {inherit lib pkgs config;};
   };
 }

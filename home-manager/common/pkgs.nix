@@ -4,8 +4,7 @@
   pkgs,
   config,
   ...
-}:
-{
+}: {
   home.packages = with pkgs; [
     # Very important
     neofetch
@@ -25,11 +24,12 @@
 
     # Spelling and grammar
     (aspellWithDicts (
-      dicts: with dicts; [
-        en
-        en-computers
-        en-science
-      ]
+      dicts:
+        with dicts; [
+          en
+          en-computers
+          en-science
+        ]
     ))
 
     # compression

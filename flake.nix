@@ -54,102 +54,98 @@
     catppuccin.url = "github:catppuccin/nix";
   };
 
-  outputs =
-    {
-      self,
-      nixpkgs,
-      home-manager,
-      hardware,
-      nix-vscode-extensions,
-      nixgl,
-      determinate,
-      nix-doom,
-      nur,
-      catppuccin,
-      ...
-    }@inputs:
-    let
-      inherit (self) outputs;
+  outputs = {
+    self,
+    nixpkgs,
+    home-manager,
+    hardware,
+    nix-vscode-extensions,
+    nixgl,
+    determinate,
+    nix-doom,
+    nur,
+    catppuccin,
+    ...
+  } @ inputs: let
+    inherit (self) outputs;
 
-      homeModules = [
-        nix-doom.homeModule
-        catppuccin.homeModules.catppuccin
-      ];
+    homeModules = [
+      nix-doom.homeModule
+      catppuccin.homeModules.catppuccin
+    ];
 
-      nixosModules = [
-        determinate.nixosModules.default
-        catppuccin.nixosModules.catppuccin
-      ];
+    nixosModules = [
+      determinate.nixosModules.default
+      catppuccin.nixosModules.catppuccin
+    ];
 
-      overlays = [
-        nix-vscode-extensions.overlays.default
-        nixgl.overlay
-        nur.overlays.default
-      ];
+    overlays = [
+      nix-vscode-extensions.overlays.default
+      nixgl.overlay
+      nur.overlays.default
+    ];
 
-      # A function to automatically set the hostname and hostname-derived config
-      commonModules =
-        name:
-        [
-          ./hosts/common.nix
-          { networking.hostName = name; }
-          { nixpkgs.overlays = overlays; }
-          {
-            home-manager = {
-              # Just pass the whole input output sets to HM
-              extraSpecialArgs = { inherit inputs outputs nixgl; };
-              useUserPackages = true;
-              useGlobalPkgs = true;
-              backupFileExtension = "backup";
-              sharedModules = homeModules;
-              users = {
-                kiran = import ./home-manager/${name}.nix;
-              };
+    # A function to automatically set the hostname and hostname-derived config
+    commonModules = name:
+      [
+        ./hosts/common.nix
+        {networking.hostName = name;}
+        {nixpkgs.overlays = overlays;}
+        {
+          home-manager = {
+            # Just pass the whole input output sets to HM
+            extraSpecialArgs = {inherit inputs outputs nixgl;};
+            useUserPackages = true;
+            useGlobalPkgs = true;
+            backupFileExtension = "backup";
+            sharedModules = homeModules;
+            users = {
+              kiran = import ./home-manager/${name}.nix;
             };
-          }
-          ./hosts/${name}.nix
-        ]
-        ++ nixosModules;
+          };
+        }
+        ./hosts/${name}.nix
+      ]
+      ++ nixosModules;
 
-      # A function to create the NixOS systems
-      mkSystem =
-        name: cfg:
-        nixpkgs.lib.nixosSystem {
-          system = cfg.system or "x86_64-linux";
-          modules = (commonModules name) ++ (cfg.modules or [ ]);
-          specialArgs = { inherit inputs outputs; };
-        };
-
-      # The systems we'll configure
-      systems = {
-        # My home desktop
-        kix = { };
-        # My framework laptop
-        kixtop = { };
+    # A function to create the NixOS systems
+    mkSystem = name: cfg:
+      nixpkgs.lib.nixosSystem {
+        system = cfg.system or "x86_64-linux";
+        modules = (commonModules name) ++ (cfg.modules or []);
+        specialArgs = {inherit inputs outputs;};
       };
-    in
-    {
-      # Build the systems for NixOS
-      nixosConfigurations = nixpkgs.lib.mapAttrs mkSystem systems;
 
-      # Provide the home configuration for non-nixOS work machine
-      homeConfigurations."kshila" = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {
-          system = "x86_64-linux";
-          config.allowUnfree = true;
-          overlays = overlays;
-        };
+    # The systems we'll configure
+    systems = {
+      # My home desktop
+      kix = {};
+      # My framework laptop
+      kixtop = {};
+    };
+  in {
+    # Build the systems for NixOS
+    nixosConfigurations = nixpkgs.lib.mapAttrs mkSystem systems;
 
-        # The home-config for the standalone install
-        modules = [
+    # Provide the home configuration for non-nixOS work machine
+    homeConfigurations."kshila" = home-manager.lib.homeManagerConfiguration {
+      pkgs = import nixpkgs {
+        system = "x86_64-linux";
+        config.allowUnfree = true;
+        overlays = overlays;
+      };
+
+      # The home-config for the standalone install
+      modules =
+        [
           ./home-manager/krocky.nix
         ]
         ++ homeModules;
 
-        # Passing along nixgl to the standalone
-        extraSpecialArgs = {
-          inherit nixgl;
-        };
+      # Passing along nixgl to the standalone
+      extraSpecialArgs = {
+        inherit nixgl;
       };
     };
+  };
 }

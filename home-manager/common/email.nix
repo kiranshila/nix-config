@@ -4,8 +4,7 @@
   config,
   lib,
   ...
-}:
-{
+}: {
   accounts.email.accounts = {
     "me@kiranshila.com" = {
       primary = lib.mkDefault true;

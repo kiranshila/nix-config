@@ -3,8 +3,7 @@
   config,
   pkgs,
   ...
-}:
-{
+}: {
   # Enable fontconfig
   fonts.fontconfig.enable = true;
 
@@ -37,7 +36,7 @@
   # The extension still seems like it needs to be enabled manually
   programs.browserpass = {
     enable = true;
-    browsers = [ "firefox" ];
+    browsers = ["firefox"];
   };
 
   # cat replacement

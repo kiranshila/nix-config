@@ -1,14 +1,9 @@
-{
-  pkgs,
-  ...
-}:
-let
+{pkgs, ...}: let
   type = "caldav";
   userName = "me@kiranshila.com";
   urlRoot = "https://cdav.migadu.com/calendars/${userName}";
   passwordCommand = "${pkgs.pass}/bin/pass email/${userName}";
-in
-{
+in {
   accounts.calendar.accounts = {
     Home = {
       remote = {

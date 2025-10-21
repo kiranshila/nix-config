@@ -3,8 +3,7 @@
   pkgs,
   config,
   ...
-}:
-{
+}: {
   id = 0;
   isDefault = true;
 
@@ -89,6 +88,6 @@
       container-proxy
     ];
     # Extension-specific settings
-    settings = { };
+    settings = {};
   };
 }

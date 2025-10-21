@@ -3,8 +3,7 @@
   pkgs,
   config,
   ...
-}:
-{
+}: {
   programs.vscode = {
     enable = true;
     package = config.lib.nixGL.wrap pkgs.vscodium;
@@ -12,8 +11,7 @@
     profiles.default = {
       enableExtensionUpdateCheck = false;
       enableUpdateCheck = false;
-      extensions =
-        with pkgs.vscode-marketplace;
+      extensions = with pkgs.vscode-marketplace;
         [
           julialang.language-julia
           rust-lang.rust-analyzer

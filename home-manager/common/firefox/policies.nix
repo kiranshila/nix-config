@@ -57,5 +57,4 @@
     UrlbarInterventions = false;
     SkipOnboarding = true;
   };
-
 }
