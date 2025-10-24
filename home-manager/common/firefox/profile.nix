@@ -46,8 +46,6 @@
     # Sidebar
     "sidebar.revamp" = true;
     "sidebar.verticalTabs" = true;
-    "sidebar.animation.expand-on-hover.duration-ms" = 100;
-    "sidebar.animation.duration-ms" = 100;
 
     # Sync
     "services.sync.username" = "me@kiranshila.com";
