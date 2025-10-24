@@ -3,7 +3,8 @@
   pkgs,
   config,
   ...
-}: {
+}:
+{
   id = 0;
   isDefault = true;
 
@@ -82,11 +83,10 @@
       facebook-container
       zotero-connector
       privacy-badger
-      firefox-color
       browserpass
       container-proxy
     ];
     # Extension-specific settings
-    settings = {};
+    settings = { };
   };
 }
