@@ -56,6 +56,9 @@
     "services.sync.engine.prefs" = false;
     "services.sync.engine.creditcards" = false;
     "services.sync.engine.passwords" = false; # We're using Pass
+
+    # Open PDFs inline
+    "browser.download.open_pdf_attachments_inline" = true;
   };
 
   search = {
@@ -64,11 +67,67 @@
     privateDefault = "ddg";
     engines = {
       # Disable all the stupid "This time, search with" icons
-      ddg.metaData.hidden = true;
       bing.metaData.hidden = true;
       ebay.metaData.hidden = true;
       amazondotcom.metaData.hidden = true;
       wikipedia.metaData.hidden = true;
+
+      "Nix Packages" = {
+        urls = [
+          {
+            template = "https://search.nixos.org/packages";
+            params = [
+              {
+                name = "channel";
+                value = "unstable";
+              }
+              {
+                name = "query";
+                value = "{searchTerms}";
+              }
+            ];
+          }
+        ];
+        icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+        definedAliases = [ "@np" ];
+      };
+
+      "Nix Options" = {
+        urls = [
+          {
+            template = "https://search.nixos.org/options";
+            params = [
+              {
+                name = "channel";
+                value = "unstable";
+              }
+              {
+                name = "query";
+                value = "{searchTerms}";
+              }
+            ];
+          }
+        ];
+        icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+        definedAliases = [ "@no" ];
+      };
+
+      "NixOS Wiki" = {
+        urls = [
+          {
+            template = "https://wiki.nixos.org/w/index.php";
+            params = [
+              {
+                name = "search";
+                value = "{searchTerms}";
+              }
+            ];
+          }
+        ];
+        icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+        definedAliases = [ "@nw" ];
+      };
+
     };
   };
 
