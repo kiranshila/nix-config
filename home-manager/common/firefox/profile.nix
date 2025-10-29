@@ -47,7 +47,7 @@
     "sidebar.revamp" = true;
     "sidebar.verticalTabs" = true;
 
-    # Sync
+    # Sync Login
     "services.sync.username" = "me@kiranshila.com";
     # Only sync history, bookmarks, tabs
     "services.sync.declinedEngines" = "addresses,addons,passwords,creditcards,prefs";
@@ -59,6 +59,17 @@
 
     # Open PDFs inline
     "browser.download.open_pdf_attachments_inline" = true;
+
+    # Pls no AI
+    "browser.ml.chat.enabled" = false;
+    "browser.ml.chat.page.footerBadge" = false;
+    "browser.ml.chat.page.menuBadge" = false;
+    "browser.ml.chat.shortcuts" = false;
+    "browser.ml.chat.shortcuts.custom" = false;
+    "browser.ml.chat.sidebar" = false;
+    "browser.ml.checkForMemory" = false;
+    "browser.ml.enable" = false;
+    "browser.ml.linkPreview.shift" = false;
   };
 
   search = {
