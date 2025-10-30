@@ -46,6 +46,13 @@
       22000
       21027
     ];
+    # MagicDNS for tailscale
+    nameservers = [
+      "100.100.100.100"
+      "1.1.1.1"
+      "8.8.8.8"
+    ];
+    search = [ "tail297143.ts.net" ];
   };
 
   # Setup time
