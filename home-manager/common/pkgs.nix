@@ -4,7 +4,8 @@
   pkgs,
   config,
   ...
-}: {
+}:
+{
   home.packages = with pkgs; [
     # Very important
     neofetch
@@ -24,12 +25,11 @@
 
     # Spelling and grammar
     (aspellWithDicts (
-      dicts:
-        with dicts; [
-          en
-          en-computers
-          en-science
-        ]
+      dicts: with dicts; [
+        en
+        en-computers
+        en-science
+      ]
     ))
 
     # compression
@@ -94,5 +94,9 @@
 
     # Remote control
     (config.lib.nixGL.wrap remmina)
+
+    # Photo Tools
+    # (pkgs.callPackage ./filmvert.nix { })
+    prusa-slicer
   ];
 }
