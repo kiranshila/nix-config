@@ -19,7 +19,7 @@
     tealdeer
     tmux
     pciutils
-    (config.lib.nixGL.wrap onlyoffice-bin)
+    (config.lib.nixGL.wrap onlyoffice-desktopeditors)
     alejandra
     veracrypt
 
