@@ -1,18 +1,31 @@
 # Git config
-{...}: {
+{ ... }:
+{
   programs.git = {
     enable = true;
-    userName = "Kiran Shila";
-    userEmail = "me@kiranshila.com";
     lfs.enable = true;
-    difftastic.enable = true;
     signing = {
       key = null;
       signByDefault = true;
     };
-    extraConfig = {
-      init = {defaultBranch = "main";};
-      pull = {rebase = true;};
+    settings = {
+      user = {
+        email = "me@kiranshila.com";
+        name = "Kiran Shila";
+      };
+      init = {
+        defaultBranch = "main";
+      };
+      pull = {
+        rebase = true;
+      };
     };
   };
+
+  # Enable difftastic (for git)
+  programs.difftastic = {
+    enable = true;
+    git.enable = true;
+  };
+
 }
