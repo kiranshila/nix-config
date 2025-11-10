@@ -7,6 +7,9 @@
 (setq! shell-file-name (executable-find "bash"))
 (setq-default vterm-shell (executable-find "fish"))
 
+;; Fix SSH Agent
+(setenv "SSH_AUTH_SOCK" (string-trim (shell-command-to-string "gpgconf --list-dirs agent-ssh-socket")))
+
 ;; Make sure the theme is loaded
 (use-package! catppuccin-theme
   :config
