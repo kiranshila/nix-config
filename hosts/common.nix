@@ -360,7 +360,9 @@
   # Scanner setup
   hardware.sane = {
     enable = true;
-    extraBackends = [ (pkgs.epsonscan2.override { withNonFreePlugins = true; }) ];
+    extraBackends = with pkgs; [
+      (epsonscan2.override { withNonFreePlugins = true; })
+    ];
   };
 
   # Tailscale
