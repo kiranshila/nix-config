@@ -74,11 +74,11 @@
          (lisp-mode . smartparens-strict-mode)
          (emacs-lisp-mode . smartparens-strict-mode)))
 
-(after! 'cider
+(after! cider
   (setq cider-repl-pop-to-buffer-on-connect t))
 
 ;; Rust setup
-(after! `lsp-rust
+(after! lsp-rust
   (setq! lsp-rust-analyzer-display-chaining-hints t)
   (setq! lsp-rust-analyzer-max-inlay-hint-length 25)
   (setq! lsp-rust-analyzer-proc-macro-enable t)
@@ -86,7 +86,7 @@
   (setq! lsp-rust-analyzer-cargo-watch-command "clippy"))
 
 ;; Nix setup
-(after! `lsp-nix
+(after! lsp-nix
   (setq! lsp-nix-nil-formatter ["alejandra" "--"]))
 
 ;; Enable horizontal scrolling
