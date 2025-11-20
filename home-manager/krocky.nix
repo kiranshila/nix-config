@@ -4,13 +4,16 @@
   nixgl,
   lib,
   ...
-}: {
+}:
+{
   # Setup NixGL
-  nixGL.packages = nixgl.packages;
-  nixGL.defaultWrapper = "nvidia";
-  nixGL.installScripts = ["nvidia"];
+  targets.genericLinux.nixGL = {
+    packages = nixgl.packages;
+    defaultWrapper = "nvidia";
+    installScripts = [ "nvidia" ];
+  };
 
-  imports = [./common.nix];
+  imports = [ ./common.nix ];
 
   # Set my home directory
   home = {
@@ -42,14 +45,24 @@
   # Add syncthing config to sync to home, laptop, and NAS
   services.syncthing.settings = {
     devices = {
-      "Laptop" = {id = "5YNXHAA-3O3C4DV-L23BD6P-R3XMQ73-5YBKUFP-5IQRGQ7-XKTCMLH-UVITPQG";};
-      "Home" = {id = "FD3VE6H-PABFAI2-KFJTYBN-WDJ4WRZ-XGOSAFB-6IYPQ45-4CJ2NOW-LZB6NA2";};
-      "NAS" = {id = "PQRDY3U-HFLWGDI-B5KSHL2-ICXC6SM-WYPGZZ5-F553F3T-ZCYPSUR-STUJ5A4";};
+      "Laptop" = {
+        id = "5YNXHAA-3O3C4DV-L23BD6P-R3XMQ73-5YBKUFP-5IQRGQ7-XKTCMLH-UVITPQG";
+      };
+      "Home" = {
+        id = "FD3VE6H-PABFAI2-KFJTYBN-WDJ4WRZ-XGOSAFB-6IYPQ45-4CJ2NOW-LZB6NA2";
+      };
+      "NAS" = {
+        id = "PQRDY3U-HFLWGDI-B5KSHL2-ICXC6SM-WYPGZZ5-F553F3T-ZCYPSUR-STUJ5A4";
+      };
     };
     folders = {
       "apybf-p3tmn" = {
         path = "/home/kshila/sync";
-        devices = ["NAS" "Home" "Laptop"];
+        devices = [
+          "NAS"
+          "Home"
+          "Laptop"
+        ];
       };
     };
   };
