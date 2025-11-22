@@ -6,8 +6,7 @@
   config,
   pkgs,
   ...
-}:
-{
+}: {
   imports = [
     # Bring in home manager
     inputs.home-manager.nixosModules.home-manager
@@ -41,7 +40,7 @@
     # 22000 TCP and/or UDP for sync traffic
     # 21027/UDP for discovery
     # source: https://docs.syncthing.net/users/firewall.html
-    firewall.allowedTCPPorts = [ 22000 ];
+    firewall.allowedTCPPorts = [22000];
     firewall.allowedUDPPorts = [
       22000
       21027
@@ -52,7 +51,7 @@
       "1.1.1.1"
       "8.8.8.8"
     ];
-    search = [ "tail297143.ts.net" ];
+    search = ["tail297143.ts.net"];
   };
 
   # Setup time
@@ -105,20 +104,6 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # Setup noise cancellation module
-    extraConfig.pipewire."echo-canellation" = {
-      "context.modules" = [
-        {
-          name = "libpipewire-module-echo-cancel";
-          args = {
-            capture.props.node.name = "Echo Cancellation Capture";
-            source.props.node.name = "Echo Cancellation Source";
-            sink.props.node.name = "Echo Cancellation Sink";
-            playback.props.node.name = "Echo Cancellation Playback";
-          };
-        }
-      ];
-    };
   };
 
   # Enable bluetooth
@@ -146,17 +131,19 @@
 
   # This will add each flake input as a registry
   # To make nix3 commands consistent with your flake
-  nix.registry = (lib.mapAttrs (_: flake: { inherit flake; })) (
+  nix.registry = (lib.mapAttrs (_: flake: {inherit flake;})) (
     (lib.filterAttrs (_: lib.isType "flake")) inputs
   );
 
   # This will additionally add your inputs to the system's legacy channels
   # Making legacy nix commands consistent as well, awesome!
-  nix.nixPath = [ "/etc/nix/path" ];
-  environment.etc = lib.mapAttrs' (name: value: {
-    name = "nix/path/${name}";
-    value.source = value.flake;
-  }) config.nix.registry;
+  nix.nixPath = ["/etc/nix/path"];
+  environment.etc =
+    lib.mapAttrs' (name: value: {
+      name = "nix/path/${name}";
+      value.source = value.flake;
+    })
+    config.nix.registry;
 
   # Perform garbage collection weekly to maintain low disk usage
   nix.gc = {
@@ -175,7 +162,7 @@
     # Deduplicate and optimize nix store
     auto-optimise-store = true;
     # Allow me to specify additional substituters
-    trusted-users = [ "kiran" ];
+    trusted-users = ["kiran"];
     # List of substituters
     substituters = [
       "https://cache.nixos.org"
@@ -191,7 +178,7 @@
 
   users = {
     # Define the plugdev group
-    groups.plugdev = { };
+    groups.plugdev = {};
     # Kiran is always the default user
     users = {
       kiran = {
@@ -335,7 +322,7 @@
         package = pkgs.qemu_kvm;
         runAsRoot = true;
         swtpm.enable = true;
-        vhostUserPackages = [ pkgs.virtiofsd ];
+        vhostUserPackages = [pkgs.virtiofsd];
       };
     };
   };
@@ -361,7 +348,7 @@
   hardware.sane = {
     enable = true;
     extraBackends = with pkgs; [
-      (epsonscan2.override { withNonFreePlugins = true; })
+      (epsonscan2.override {withNonFreePlugins = true;})
     ];
   };
 
