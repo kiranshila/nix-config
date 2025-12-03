@@ -20,6 +20,7 @@
     tmux
     pciutils
     (config.lib.nixGL.wrap onlyoffice-desktopeditors)
+    (config.lib.nixGL.wrap looking-glass-client)
     alejandra
     veracrypt
 

@@ -67,7 +67,7 @@
  org
  (python +lsp +pyright +tree-sitter)            
  (rest +jq)
- (rust +lsp +tree-sitter)   
+ (rust +lsp)
  (sh +fish)           
  (web +lsp +tree-sitter)   
  (yaml +lsp +tree-sitter)     
