@@ -89,6 +89,10 @@
 (after! lsp-nix
   (setq! lsp-nix-nil-formatter ["alejandra" "--"]))
 
+;; Clojure Setup
+;; (after! clojure
+;;   (setq! clojure-ts-ensure-grammars nil))
+
 ;; Enable horizontal scrolling
 (setq! mouse-wheel-tilt-scroll t)
 (setq! mouse-wheel-flip-direction t)

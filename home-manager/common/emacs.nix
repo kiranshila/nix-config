@@ -1,19 +1,68 @@
 {
-  config,
   pkgs,
   lib,
   ...
-}: {
+}: let
+  # These follow from clojure-ts-grammar-recipes
+  clojure-ts-grammar = pkgs.tree-sitter.buildGrammar {
+    language = "tree-sitter-clojure";
+    version = "unstable-20250526";
+    src = pkgs.fetchFromGitHub {
+      owner = "sogaiu";
+      repo = "tree-sitter-clojure";
+      rev = "69070d2e4563f8f58c7f57b0c8e093a08d7a5814";
+      sha256 = "sha256-+Miraf8kI8rZg7SYdfNM+mb78k9xNDUKYg3VTFzUHMo=";
+    };
+  };
+
+  markdown-inline-grammar = pkgs.tree-sitter.buildGrammar rec {
+    language = "tree-sitter-markdown_inline";
+    version = "0.4.1";
+    src = pkgs.fetchFromGitHub {
+      owner = "MDeiml";
+      repo = "tree-sitter-markdown";
+      tag = "v${version}";
+      sha256 = "sha256-Oe2iL5b1Cyv+dK0nQYFNLCCOCe+93nojxt6ukH2lEmU=";
+    };
+    sourceRoot = "source/tree-sitter-markdown-inline";
+  };
+
+  regex-grammar = pkgs.tree-sitter.buildGrammar rec {
+    language = "tree-sitter-regex";
+    version = "0.24.3";
+    src = pkgs.fetchFromGitHub {
+      owner = "tree-sitter";
+      repo = "tree-sitter-regex";
+      tag = "v${version}";
+      sha256 = "sha256-GNWntm8sgqVt6a+yFVncjkoMOe7CnXX9Qmpwy6KcFyU";
+    };
+  };
+in {
   # Doom Emacs
   programs.doom-emacs = {
     enable = true;
     doomDir = ./doom;
     emacs = lib.mkDefault pkgs.emacs-pgtk; # Default to pure-gtk on wayland builds
-    extraPackages = epkgs: [
-      epkgs.vterm
-      epkgs.pdf-tools
-      epkgs.treesit-grammars.with-all-grammars
-    ];
+    extraPackages = epkgs:
+      with epkgs; [
+        vterm
+        pdf-tools
+        (treesit-grammars.with-grammars
+          (p:
+            with p; [
+              # Things from nixpkgs
+              tree-sitter-bash
+              tree-sitter-nix
+              tree-sitter-fish
+              tree-sitter-rust
+              tree-sitter-c
+              tree-sitter-cpp
+              # Our custom ones
+              regex-grammar
+              markdown-inline-grammar
+              clojure-ts-grammar
+            ]))
+      ];
     experimentalFetchTree = true;
   };
 
