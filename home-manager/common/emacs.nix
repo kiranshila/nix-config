@@ -54,7 +54,6 @@ in {
               tree-sitter-bash
               tree-sitter-nix
               tree-sitter-fish
-              tree-sitter-rust
               tree-sitter-c
               tree-sitter-cpp
               # Our custom ones
