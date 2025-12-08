@@ -89,10 +89,6 @@
 (after! lsp-nix
   (setq! lsp-nix-nil-formatter ["alejandra" "--"]))
 
-;; Clojure Setup
-;; (after! clojure
-;;   (setq! clojure-ts-ensure-grammars nil))
-
 ;; Enable horizontal scrolling
 (setq! mouse-wheel-tilt-scroll t)
 (setq! mouse-wheel-flip-direction t)
@@ -108,5 +104,33 @@
                     :activation-fn (lsp-activate-on "toml")
                     :server-id 'taplo)))
 
-;; Email
-(setq +notmuch-sync-backend 'mbsync)
+;; OpenSCAD
+(use-package! scad-mode
+  :config
+  ;; Enable the LSP
+  (add-hook 'scad-mode-local-vars-hook #'lsp! 'append)
+  ;; Preview mode switches to emacs mdoe
+  (add-to-list 'evil-emacs-state-modes 'scad-preview-mode)
+  (map!
+   (:localleader
+    (:map scad-mode-map
+     :desc "Export"            "e" #'scad-export
+     :desc "Open"              "o" #'scad-open
+     :desc "Preview"           "p" #'scad-preview))
+   (:map scad-preview-mode-map
+    :desc "Distance+"          "[" #'scad-preview-distance+
+    :desc "Distance-"          "]" #'scad-preview-distance-
+    :desc "Toggle Projection"  "p" #'scad-preview-projection
+    :desc "Translate x-"       "h" #'scad-preview-translate-x-
+    :desc "Translate x+"       "l" #'scad-preview-translate-x+
+    :desc "Translate y-"       "j" #'scad-preview-translate-y-
+    :desc "Translate y+"       "k" #'scad-preview-translate-y+
+    :desc "Translate z-"       "n" #'scad-preview-translate-z-
+    :desc "Translate z+"       "m" #'scad-preview-translate-z+
+    :desc "Rotate x-"          "H" #'scad-preview-rotate-x-
+    :desc "Rotate x+"          "L" #'scad-preview-rotate-x+
+    :desc "Rotate y-"          "J" #'scad-preview-rotate-y-
+    :desc "Rotate y+"          "K" #'scad-preview-rotate-y+
+    :desc "Rotate z-"          "N" #'scad-preview-rotate-z-
+    :desc "Rotate z+"          "M" #'scad-preview-rotate-z+)))
+

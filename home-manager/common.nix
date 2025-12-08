@@ -3,8 +3,7 @@
   config,
   pkgs,
   ...
-}:
-{
+}: {
   # Enable fontconfig
   fonts.fontconfig.enable = true;
 
@@ -37,7 +36,7 @@
   # The extension still seems like it needs to be enabled manually
   programs.browserpass = {
     enable = true;
-    browsers = [ "firefox" ];
+    browsers = ["firefox"];
   };
 
   # cat replacement
@@ -83,6 +82,9 @@
     firefox.enable = false;
   };
 
+  # SafeEyes
+  services.safeeyes.enable = true;
+
   # Bring in everything else that might need more configuration
   imports = [
     ./common/calendar.nix
@@ -93,6 +95,7 @@
     ./common/git.nix
     ./common/gpg.nix
     ./common/kitty.nix
+    ./common/openscad.nix
     ./common/pkgs.nix
     ./common/ssh.nix
     ./common/syncthing.nix

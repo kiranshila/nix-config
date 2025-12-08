@@ -3,3 +3,4 @@
 
 (package! nyan-mode)
 (package! catppuccin-theme)
+(package! scad-mode)

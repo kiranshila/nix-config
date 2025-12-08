@@ -56,6 +56,8 @@ in {
               tree-sitter-fish
               tree-sitter-c
               tree-sitter-cpp
+              tree-sitter-yaml
+              tree-sitter-toml
               # Our custom ones
               regex-grammar
               markdown-inline-grammar
@@ -76,10 +78,6 @@ in {
     emacs-all-the-icons-fonts
     nerd-fonts.symbols-only
 
-    # Email
-    notmuch
-    isync
-
     # LSPs
     taplo # TOML
     clojure-lsp # Clojure
@@ -88,5 +86,6 @@ in {
     pyright # Python
     yaml-language-server # YAML
     typescript-language-server # TS/JS
+    openscad-lsp # OpenSCAD
   ];
 }
