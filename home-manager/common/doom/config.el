@@ -96,14 +96,6 @@
 ;; pdf-tools for latex preview
 (setq! +latex-viewers '(pdf-tools))
 
-;; TOML language server
-(after! lsp-mode
-  (add-to-list 'lsp-language-id-configuration '(toml-mode . "toml"))
-  (lsp-register-client
-   (make-lsp-client :new-connection (lsp-stdio-connection "taplo")
-                    :activation-fn (lsp-activate-on "toml")
-                    :server-id 'taplo)))
-
 ;; OpenSCAD
 (use-package! scad-mode
   :config
@@ -134,3 +126,35 @@
     :desc "Rotate z-"          "N" #'scad-preview-rotate-z-
     :desc "Rotate z+"          "M" #'scad-preview-rotate-z+)))
 
+;; Typst
+(after! lsp-mode
+  (add-to-list 'lsp-language-id-configuration '(typst-ts-mode . "typst"))
+
+  (lsp-register-client
+   (make-lsp-client
+    :new-connection (lsp-stdio-connection '("tinymist"))
+    :major-modes '(typst-ts-mode)
+    :server-id 'tinymist
+    :initialization-options (lambda ()
+                              (lsp-ht ("formatterMode" "typstyle")
+                                      ("exportPdf" "onSave")
+                                      ("formatterProseWrap" t)
+                                      ("lint.enabled" t)
+                                      ("lint.when" "onSave"))))))
+
+(use-package! typst-ts-mode
+  :custom
+  (typst-ts-watch-options "--open")
+  (typst-ts-mode-enable-raw-blocks-highlight t)
+  :config
+  (add-hook 'typst-ts-mode-hook #'lsp! 'append)
+  (set-popup-rule! "^\\*typst-ts-compilation\\*"
+    :side 'bottom
+    :size 0.5
+    :select nil
+    :ttl t)
+  (map!
+   (:localleader
+    :map typst-ts-mode-map
+    :desc "Compile document" "c" #'typst-ts-compile
+    :desc "Preview document" "p" #'typst-ts-mode-preview)))

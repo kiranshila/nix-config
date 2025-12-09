@@ -37,6 +37,18 @@
       sha256 = "sha256-GNWntm8sgqVt6a+yFVncjkoMOe7CnXX9Qmpwy6KcFyU";
     };
   };
+
+  # Required by typst-ts-mode
+  typst-grammar = pkgs.tree-sitter.buildGrammar rec {
+    language = "tree-sitter-typst";
+    version = "nightly";
+    src = pkgs.fetchFromGitHub {
+      owner = "uben0";
+      repo = language;
+      rev = "master";
+      sha256 = "sha256-s/9R3DKA6dix6BkU4mGXaVggE4bnzOyu20T1wuqHQxk=";
+    };
+  };
 in {
   # Doom Emacs
   programs.doom-emacs = {
@@ -58,10 +70,12 @@ in {
               tree-sitter-cpp
               tree-sitter-yaml
               tree-sitter-toml
+              tree-sitter-json
               # Our custom ones
               regex-grammar
               markdown-inline-grammar
               clojure-ts-grammar
+              typst-grammar
             ]))
       ];
     experimentalFetchTree = true;
@@ -87,5 +101,6 @@ in {
     yaml-language-server # YAML
     typescript-language-server # TS/JS
     openscad-lsp # OpenSCAD
+    tinymist # Typst
   ];
 }

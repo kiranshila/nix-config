@@ -86,6 +86,10 @@
     poppler
     (config.lib.nixGL.wrap zoom-us)
 
+    # Typst stuff
+    typst
+    typstyle
+
     # Build tools
     ninja
     cmake
