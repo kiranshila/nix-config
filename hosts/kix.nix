@@ -44,9 +44,10 @@
     ];
 
     # These must be baked into the initrd image, kernel params pick them up too lake because nvidia
+    # Add Quadro, its audio, and the firewire controller
     extraModprobeConfig = ''
       softdep nvidia pre: vfio-pci
-      options vfio-pci ids=10de:1c31,10de:10f1
+      options vfio-pci ids=10de:1c31,10de:10f1,104c:8024
     '';
   };
 
