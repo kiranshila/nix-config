@@ -99,5 +99,8 @@
 
     # Photo Tools
     prusa-slicer
+
+    # AI
+    claude-code
   ];
 }

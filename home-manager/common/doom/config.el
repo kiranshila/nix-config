@@ -137,10 +137,7 @@
     :server-id 'tinymist
     :initialization-options (lambda ()
                               (lsp-ht ("formatterMode" "typstyle")
-                                      ("exportPdf" "onSave")
-                                      ("formatterProseWrap" t)
-                                      ("lint.enabled" t)
-                                      ("lint.when" "onSave"))))))
+                                      ("exportPdf" "onSave"))))))
 
 (use-package! typst-ts-mode
   :custom
