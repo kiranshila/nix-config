@@ -155,3 +155,9 @@
     :map typst-ts-mode-map
     :desc "Compile document" "c" #'typst-ts-compile
     :desc "Preview document" "p" #'typst-ts-mode-preview)))
+
+;; Claude Code
+(use-package! claude-code
+  :config
+  (setq! claude-code-terminal-backend 'vterm)
+  (claude-code-mode))

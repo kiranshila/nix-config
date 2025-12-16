@@ -71,6 +71,7 @@ in {
               tree-sitter-yaml
               tree-sitter-toml
               tree-sitter-json
+              tree-sitter-python
               # Our custom ones
               regex-grammar
               markdown-inline-grammar
