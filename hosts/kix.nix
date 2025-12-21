@@ -34,6 +34,7 @@
     kernelParams = [
       "intel_iommu=on"
       "iommu=pt"
+      "pci=routeirq" # Force IRQ rerouting
     ];
 
     # VFIO kernel modules
@@ -44,10 +45,12 @@
     ];
 
     # These must be baked into the initrd image, kernel params pick them up too lake because nvidia
-    # Add Quadro, its audio, and the firewire controller
+    # Add Quadro, its audio, and the firewire controller (both the TI PCI controller and the PCIe to PCI bridge chip on the same card)
     extraModprobeConfig = ''
       softdep nvidia pre: vfio-pci
-      options vfio-pci ids=10de:1c31,10de:10f1,104c:8024
+      softdep firewire_ohci pre: vfio-pci
+      options vfio_iommu_type1 allow_unsafe_interrupts=1
+      options vfio-pci ids=10de:1c31,10de:10f1,104c:8024,1b21:1080
     '';
   };
 

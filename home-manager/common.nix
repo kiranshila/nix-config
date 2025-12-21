@@ -82,9 +82,6 @@
     firefox.enable = false;
   };
 
-  # SafeEyes
-  services.safeeyes.enable = true;
-
   # Bring in everything else that might need more configuration
   imports = [
     ./common/calendar.nix

@@ -162,7 +162,7 @@
     # Deduplicate and optimize nix store
     auto-optimise-store = true;
     # Allow me to specify additional substituters
-    trusted-users = ["kiran"];
+    trusted-users = ["kiran" "kshila"];
     # List of substituters
     substituters = [
       "https://cache.nixos.org"
@@ -293,6 +293,8 @@
     KERNEL=="hidraw*", SUBSYSTEM=="hidraw", GROUP="plugdev", MODE="0666", TAG+="uaccess"
     # LabJack
     SUBSYSTEM=="usb", ATTR{idVendor}=="0CD5", GROUP="plugdev", MODE="0666",
+    # X-Rite i1 Display Pro
+    SUBSYSTEM=="usb", ATTR{idVendor}=="0765", GROUP="plugdev", MODE="0666",
   '';
 
   # Enable fwupmgr
