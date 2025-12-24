@@ -85,6 +85,7 @@
     pdf2svg
     poppler
     (config.lib.nixGL.wrap zoom-us)
+    (conig.lib.nixGL.wrap qucs-s)
 
     # Typst stuff
     typst
