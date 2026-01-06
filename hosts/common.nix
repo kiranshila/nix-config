@@ -346,14 +346,6 @@
     };
   };
 
-  # Scanner setup
-  hardware.sane = {
-    enable = true;
-    extraBackends = with pkgs; [
-      (epsonscan2.override {withNonFreePlugins = true;})
-    ];
-  };
-
   # Tailscale
   services.tailscale.enable = true;
 }
