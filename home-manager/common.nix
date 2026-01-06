@@ -74,7 +74,6 @@
   # - kitty
   # - starship
   # - thunderbird
-  # - vscode
   catppuccin = {
     enable = true;
     flavor = "macchiato";
@@ -96,7 +95,6 @@
     ./common/pkgs.nix
     ./common/ssh.nix
     ./common/syncthing.nix
-    ./common/vscode.nix
     ./common/helix.nix
   ];
 }

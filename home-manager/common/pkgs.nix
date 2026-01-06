@@ -85,7 +85,7 @@
     pdf2svg
     poppler
     (config.lib.nixGL.wrap zoom-us)
-    (conig.lib.nixGL.wrap qucs-s)
+    (config.lib.nixGL.wrap qucs-s)
 
     # Typst stuff
     typst
@@ -101,7 +101,7 @@
     # Photo Tools
     prusa-slicer
 
-    # AI
-    claude-code
+    # Games
+    (config.lib.nixGL.wrap cockatrice)
   ];
 }

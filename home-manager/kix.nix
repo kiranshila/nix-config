@@ -6,6 +6,7 @@
 }: {
   imports = [
     ./common.nix
+    ./common/openrct2.nix
   ];
 
   # Set my home directory
@@ -40,7 +41,6 @@
   # Kix-specific packages
   home.packages = with pkgs; [
     protonup-qt
-    pkgs.discord
   ];
 
   # NixOS State Version for Home

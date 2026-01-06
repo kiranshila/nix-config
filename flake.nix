@@ -20,12 +20,6 @@
     # Hardware Definitions
     hardware.url = "github:NixOS/nixos-hardware";
 
-    # Nix vscode extensions
-    nix-vscode-extensions = {
-      url = "github:nix-community/nix-vscode-extensions";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # NixGL
     nixgl = {
       url = "github:nix-community/nixGL";
@@ -59,7 +53,6 @@
     nixpkgs,
     home-manager,
     hardware,
-    nix-vscode-extensions,
     nixgl,
     determinate,
     nix-doom,
@@ -80,7 +73,6 @@
     ];
 
     overlays = [
-      nix-vscode-extensions.overlays.default
       nixgl.overlay
       nur.overlays.default
     ];
