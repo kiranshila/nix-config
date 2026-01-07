@@ -84,7 +84,6 @@
     julia-bin
     pdf2svg
     poppler
-    (config.lib.nixGL.wrap zoom-us)
     (config.lib.nixGL.wrap qucs-s)
 
     # Typst stuff
