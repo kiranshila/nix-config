@@ -5,7 +5,7 @@
 }: let
   # These follow from clojure-ts-grammar-recipes
   clojure-ts-grammar = pkgs.tree-sitter.buildGrammar {
-    language = "tree-sitter-clojure";
+    language = "clojure";
     version = "unstable-20250526";
     src = pkgs.fetchFromGitHub {
       owner = "sogaiu";
@@ -16,7 +16,7 @@
   };
 
   markdown-inline-grammar = pkgs.tree-sitter.buildGrammar rec {
-    language = "tree-sitter-markdown_inline";
+    language = "markdown_inline";
     version = "0.4.1";
     src = pkgs.fetchFromGitHub {
       owner = "MDeiml";
@@ -28,7 +28,7 @@
   };
 
   regex-grammar = pkgs.tree-sitter.buildGrammar rec {
-    language = "tree-sitter-regex";
+    language = "regex";
     version = "0.24.3";
     src = pkgs.fetchFromGitHub {
       owner = "tree-sitter";
@@ -40,7 +40,7 @@
 
   # Required by typst-ts-mode
   typst-grammar = pkgs.tree-sitter.buildGrammar rec {
-    language = "tree-sitter-typst";
+    language = "typst";
     version = "nightly";
     src = pkgs.fetchFromGitHub {
       owner = "uben0";
