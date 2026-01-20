@@ -97,6 +97,7 @@
     ./common/fish.nix
     ./common/git.nix
     ./common/gpg.nix
+    ./common/kicad.nix
     ./common/kitty.nix
     ./common/openscad.nix
     ./common/pkgs.nix
