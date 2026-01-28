@@ -283,8 +283,11 @@
     SUBSYSTEM=="usb", ATTR{idVendor}=="20ce", GROUP="plugdev", MODE="0666",
     # National Instruments
     SUBSYSTEM=="usb", ATTR{idVendor}=="3923", GROUP="plugdev", MODE="0666",
-    # 8BitDo Ultimate
-    # ACTION=="add", ATTRS{idVendor}=="2dc8", ATTRS{idProduct}=="3109", RUN+="/sbin/modprobe xpad", RUN+="/bin/sh -c 'echo 2dc8 3109 > /sys/bus/usb/drivers/xpad/new_id'"
+    # 8BitDo Ultimate Bluetooth Controller's boot HID interface (seems to be shared by multiple 8BitDo devices)
+    SUBSYSTEM=="hidraw", ATTRS{idProduct}=="3208", ATTRS{idVendor}=="2dc8", TAG+="uaccess"
+    # 8BitDo Ultimate Bluetooth Controller receiver's HID interface (exposed when the controller is not connected)
+    # When it is exposed, the upgrade tool can detect the receiver and automatically put in in bootloader mode.
+    SUBSYSTEM=="hidraw", ATTRS{idProduct}=="3109", ATTRS{idVendor}=="2dc8", TAG+="uaccess"
     # Rhode and Schwartz
     SUBSYSTEM=="usb", ATTR{idVendor}=="0aad", GROUP="plugdev", MODE="0666",
     # Jlink
