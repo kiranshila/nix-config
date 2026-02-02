@@ -81,6 +81,16 @@
     firefox.enable = false;
   };
 
+  # Minecraft
+  home.packages = with pkgs; [
+    (prismlauncher.override {
+      additionalPrograms = [ffmpeg];
+      jdks = [
+        graalvm-ce
+      ];
+    })
+  ];
+
   # Bring in everything else that might need more configuration
   imports = [
     ./common/calendar.nix
