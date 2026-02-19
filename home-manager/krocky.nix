@@ -4,16 +4,15 @@
   nixgl,
   lib,
   ...
-}:
-{
+}: {
   # Setup NixGL
   targets.genericLinux.nixGL = {
     packages = nixgl.packages;
     defaultWrapper = "nvidia";
-    installScripts = [ "nvidia" ];
+    installScripts = ["nvidia"];
   };
 
-  imports = [ ./common.nix ];
+  imports = [./common.nix];
 
   # Set my home directory
   home = {

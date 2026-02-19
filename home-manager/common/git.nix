@@ -1,6 +1,5 @@
 # Git config
-{ ... }:
-{
+{...}: {
   programs.git = {
     enable = true;
     lfs.enable = true;
@@ -27,5 +26,4 @@
     enable = true;
     git.enable = true;
   };
-
 }

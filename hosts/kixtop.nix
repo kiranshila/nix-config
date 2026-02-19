@@ -6,8 +6,7 @@
   config,
   pkgs,
   ...
-}:
-{
+}: {
   imports = [
     # Framework Laptop 11th Gen Intel
     inputs.hardware.nixosModules.framework-11th-gen-intel
@@ -33,8 +32,8 @@
     wg0 = {
       autostart = false;
       # Determines the IP/IPv6 address and subnet of the client's end of the tunnel interface
-      address = [ "10.10.10.3/24" ];
-      dns = [ "10.10.10.1" ];
+      address = ["10.10.10.3/24"];
+      dns = ["10.10.10.1"];
       # The port that WireGuard listens to - recommended that this be changed from default
       listenPort = 51820;
       # Path to the server's private key

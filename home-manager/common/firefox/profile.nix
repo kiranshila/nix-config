@@ -3,8 +3,7 @@
   pkgs,
   config,
   ...
-}:
-{
+}: {
   id = 0;
   isDefault = true;
 
@@ -100,7 +99,7 @@
           }
         ];
         icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-        definedAliases = [ "@np" ];
+        definedAliases = ["@np"];
       };
 
       "Nix Options" = {
@@ -120,7 +119,7 @@
           }
         ];
         icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-        definedAliases = [ "@no" ];
+        definedAliases = ["@no"];
       };
 
       "NixOS Wiki" = {
@@ -136,9 +135,8 @@
           }
         ];
         icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-        definedAliases = [ "@nw" ];
+        definedAliases = ["@nw"];
       };
-
     };
   };
 
@@ -155,6 +153,6 @@
       container-proxy
     ];
     # Extension-specific settings
-    settings = { };
+    settings = {};
   };
 }
