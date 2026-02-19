@@ -72,6 +72,9 @@ in {
               tree-sitter-toml
               tree-sitter-json
               tree-sitter-python
+              tree-sitter-rust
+              tree-sitter-javascript
+              tree-sitter-typescript
               # Our custom ones
               regex-grammar
               markdown-inline-grammar

@@ -48,7 +48,7 @@
  editorconfig
  (eval +overlay)
  lookup
- (lsp +peek)
+ (lsp +eglot)
  (magit +forge)
  make
  (pass +auth)
@@ -67,7 +67,7 @@
  org
  (python +lsp +pyright +tree-sitter)            
  (rest +jq)
- (rust +lsp)
+ (rust +lsp +tree-sitter)
  (sh +fish)           
  (web +lsp +tree-sitter)   
  (yaml +lsp +tree-sitter)     

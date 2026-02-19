@@ -77,17 +77,9 @@
 (after! cider
   (setq cider-repl-pop-to-buffer-on-connect t))
 
-;; Rust setup
-(after! lsp-rust
-  (setq! lsp-rust-analyzer-display-chaining-hints t)
-  (setq! lsp-rust-analyzer-max-inlay-hint-length 25)
-  (setq! lsp-rust-analyzer-proc-macro-enable t)
-  (setq! lsp-inlay-hint-enable t)
-  (setq! lsp-rust-analyzer-cargo-watch-command "clippy"))
-
-;; Nix setup
-(after! lsp-nix
-  (setq! lsp-nix-nil-formatter ["alejandra" "--"]))
+;; Inlay hints for all LSP-managed buffers
+(after! eglot
+  (add-hook 'eglot-managed-mode-hook #'eglot-inlay-hints-mode))
 
 ;; Enable horizontal scrolling
 (setq! mouse-wheel-tilt-scroll t)
@@ -100,8 +92,9 @@
 (use-package! scad-mode
   :config
   ;; Enable the LSP
+  (set-eglot-client! 'scad-mode '("openscad-lsp"))
   (add-hook 'scad-mode-local-vars-hook #'lsp! 'append)
-  ;; Preview mode switches to emacs mdoe
+  ;; Preview mode switches to emacs mode
   (add-to-list 'evil-emacs-state-modes 'scad-preview-mode)
   (map!
    (:localleader
@@ -126,32 +119,45 @@
     :desc "Rotate z-"          "N" #'scad-preview-rotate-z-
     :desc "Rotate z+"          "M" #'scad-preview-rotate-z+)))
 
-;; Typst
-(after! lsp-mode
-  (add-to-list 'lsp-language-id-configuration '(typst-ts-mode . "typst"))
+;; TOML
+(use-package! toml-ts-mode
+  :mode "\\.toml\\'"
+  :config
+  (set-eglot-client! 'toml-ts-mode '("taplo" "lsp" "stdio"))
+  (add-hook 'toml-ts-mode-local-vars-hook #'lsp! 'append))
 
-  (lsp-register-client
-   (make-lsp-client
-    :new-connection (lsp-stdio-connection '("tinymist"))
-    :major-modes '(typst-ts-mode)
-    :server-id 'tinymist
-    :initialization-options (lambda ()
-                              (lsp-ht ("formatterMode" "typstyle")
-                                      ("exportPdf" "onSave"))))))
+;; Eglot configuration
+(after! eglot
+  ;; Workspace configuration for language servers
+  (setq-default eglot-workspace-configuration
+                '(:rust-analyzer
+                  (:check (:command "clippy")
+                   :procMacro (:enable t)
+                   :inlayHints (:chainingHints (:enable t)
+                                :maxLength 25))
+                  :nil
+                  (:formatting (:command ["alejandra" "--"])))))
 
 (use-package! typst-ts-mode
+  :defer t
+  :init
+  (add-to-list 'auto-mode-alist '("\\.typ\\'" . typst-ts-mode))
   :custom
   (typst-ts-watch-options "--open")
   (typst-ts-mode-enable-raw-blocks-highlight t)
+  (typst-ts-fontification-precision-level 'max)
   :config
-  (add-hook 'typst-ts-mode-hook #'lsp! 'append)
+  (set-eglot-client! 'typst-ts-mode '("tinymist"
+                                       :initializationOptions
+                                       (:exportPdf "onSave")))
+  (add-hook 'typst-ts-mode-local-vars-hook #'lsp! 'append)
+  (set-formatter! 'typstyle '("typstyle") :modes '(typst-ts-mode))
+  (setq-hook! 'typst-ts-mode-hook +format-with 'typstyle)
   (set-popup-rule! "^\\*typst-ts-compilation\\*"
-    :side 'bottom
-    :size 0.5
-    :select nil
-    :ttl t)
+    :side 'bottom :size 0.5 :select nil :ttl t)
   (map!
    (:localleader
     :map typst-ts-mode-map
     :desc "Compile document" "c" #'typst-ts-compile
-    :desc "Preview document" "p" #'typst-ts-mode-preview)))
+    :desc "Preview document" "p" #'typst-ts-mode-preview
+    :desc "Watch document" "w" #'typst-ts-watch-mode)))
