@@ -73,7 +73,6 @@
     (config.lib.nixGL.wrap muse-sounds-manager)
 
     # tools
-    (config.lib.nixGL.wrap freecad)
     (config.lib.nixGL.wrap zotero)
     dosfstools
     mtools
