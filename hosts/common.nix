@@ -224,7 +224,7 @@
     curl
     vim
     alejandra
-    wineWowPackages.stable
+    wineWow64Packages.stable
     winetricks
     libusb1
     # iPhone
