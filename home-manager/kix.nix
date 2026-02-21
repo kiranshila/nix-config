@@ -41,7 +41,9 @@
   # Kix-specific packages
   home.packages = with pkgs; [
     protonup-qt
+    via
   ];
+
 
   # NixOS State Version for Home
   home.stateVersion = "25.05";

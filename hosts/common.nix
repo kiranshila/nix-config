@@ -351,4 +351,8 @@
 
   # Tailscale
   services.tailscale.enable = true;
+
+  # QMK
+  hardware.keyboard.qmk.enable = true;
+  services.udev.packages = with pkgs; [via];
 }
