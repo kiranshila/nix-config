@@ -31,7 +31,8 @@
         showSignature = "append";
         text = ''
           Dr. Kiran Shila (they/them/theirs)
-          Research Engineer | DSA-2000
+          Research Engineer
+          Deep Synoptic Array | Caltech
           T: +1 813-422-8343
         '';
       };
