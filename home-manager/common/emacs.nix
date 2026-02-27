@@ -106,5 +106,6 @@ in {
     typescript-language-server # TS/JS
     openscad-lsp # OpenSCAD
     tinymist # Typst
+    neocmakelsp # CMake
   ];
 }

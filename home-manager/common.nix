@@ -88,6 +88,13 @@
     })
   ];
 
+  # Font Config
+  fonts.fontconfig.defaultFonts = {
+    sansSerif = ["DejaVu Sans"];
+    serif = ["DejaVu Serif"];
+    monospace = ["DejaVu Sans Mono"];
+  };
+
   # Bring in everything else that might need more configuration
   imports = [
     ./common/calendar.nix
