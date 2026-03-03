@@ -81,6 +81,7 @@ in {
     (config.lib.nixGL.wrap slack)
     (config.lib.nixGL.wrap musescore)
     (config.lib.nixGL.wrap muse-sounds-manager)
+    (config.lib.nixGL.wrap zulip)
 
     # tools
     (config.lib.nixGL.wrap zotero)
@@ -93,6 +94,7 @@ in {
     pdf2svg
     poppler
     (config.lib.nixGL.wrap qucs-s)
+    (config.lib.nixGL.wrap paraview)
 
     # Typst stuff
     typst
