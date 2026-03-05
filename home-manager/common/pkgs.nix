@@ -84,7 +84,6 @@ in {
     # music
     (config.lib.nixGL.wrap musescore)
     (config.lib.nixGL.wrap muse-sounds-manager)
-    (config.lib.nixGL.wrap zulip)
 
     # tools
     (config.lib.nixGL.wrap zotero)
