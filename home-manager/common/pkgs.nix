@@ -95,15 +95,12 @@
     ninja
     cmake
 
-    cockatrice
+    (config.lib.nixGL.wrap cockatrice)
 
     # Remote control
     (config.lib.nixGL.wrap remmina)
 
     # Photo Tools
     prusa-slicer
-
-    # Games
-    (config.lib.nixGL.wrap cockatrice-beta)
   ];
 }
