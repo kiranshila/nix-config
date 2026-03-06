@@ -298,6 +298,8 @@
     SUBSYSTEM=="usb", ATTR{idVendor}=="0CD5", GROUP="plugdev", MODE="0666",
     # X-Rite i1 Display Pro
     SUBSYSTEM=="usb", ATTR{idVendor}=="0765", GROUP="plugdev", MODE="0666",
+    # Rainy75 Keyboard
+    SUBSYSTEM=="usb", ATTR{idVendor}=="320f", GROUP="plugdev", MODE="0666",
   '';
 
   # Enable fwupmgr
