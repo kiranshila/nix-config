@@ -74,6 +74,13 @@
   };
   programs.virt-manager.enable = true;
 
+  # Upstream libvirt service has a hardcoded /usr/bin/sh which doesn't exist on NixOS
+  # Empty string first clears the original ExecStart= before setting the replacement
+  systemd.services.virt-secret-init-encryption.serviceConfig.ExecStart = [
+    ""
+    "/bin/sh -c 'umask 0077 && (dd if=/dev/random status=none bs=32 count=1 | systemd-creds encrypt --name=secrets-encryption-key - /var/lib/libvirt/secrets/secrets-encryption-key)'"
+  ];
+
   # QMK keyboard firmware tools
   hardware.keyboard.qmk.enable = true;
   services.udev.packages = with pkgs; [via];

@@ -6,6 +6,7 @@
 }: {
   id = 0;
   isDefault = true;
+  userChrome = builtins.readFile ./userChrome.css;
 
   settings = {
     "browser.profiles.enabled" = false; # FIXME: https://github.com/nix-community/home-manager/issues/6934
@@ -18,6 +19,48 @@
     "identity.fxaccounts.enabled" = true;
 
     "browser.download.autohideButton" = true;
+    "browser.uiCustomization.state" = builtins.toJSON {
+      placements = {
+        widget-overflow-fixed-list = ["new-tab-button" "alltabs-button"];
+        unified-extensions-area = [
+          "contaner-proxy_bekh-ivanov_me-browser-action"
+          "jid1-zadieub7xozojw_jetpack-browser-action"
+          "_contain-facebook-browser-action"
+          "browserpass_maximbaz_com-browser-action"
+          "zotero_chnm_gmu_edu-browser-action"
+          "jid1-mnnxcxisbpnsxq_jetpack-browser-action"
+          "ublock0_raymondhill_net-browser-action"
+          "sponsorblocker_ajay_app-browser-action"
+        ];
+        nav-bar = [
+          "back-button"
+          "forward-button"
+          "stop-reload-button"
+          "vertical-spacer"
+          "urlbar-container"
+          "downloads-button"
+          "unified-extensions-button"
+        ];
+        toolbar-menubar = ["menubar-items"];
+        TabsToolbar = [];
+        vertical-tabs = ["tabbrowser-tabs"];
+        PersonalToolbar = ["personal-bookmarks"];
+      };
+      seen = [
+        "developer-button"
+        "contaner-proxy_bekh-ivanov_me-browser-action"
+        "jid1-zadieub7xozojw_jetpack-browser-action"
+        "jid1-mnnxcxisbpnsxq_jetpack-browser-action"
+        "_contain-facebook-browser-action"
+        "ublock0_raymondhill_net-browser-action"
+        "browserpass_maximbaz_com-browser-action"
+        "zotero_chnm_gmu_edu-browser-action"
+        "sponsorblocker_ajay_app-browser-action"
+      ];
+      dirtyAreaCache = ["nav-bar" "PersonalToolbar" "unified-extensions-area" "toolbar-menubar" "TabsToolbar" "vertical-tabs"];
+      currentVersion = 23;
+      newElementCount = 2;
+    };
     "browser.aboutConfig.showWarning" = false;
     "browser.urlbar.keepPanelOpenDuringImeComposition" = true;
     "browser.newtabpage.activity-stream.showSearch" = false;
@@ -45,6 +88,7 @@
     # Sidebar
     "sidebar.revamp" = true;
     "sidebar.verticalTabs" = true;
+    "sidebar.visibility" = "expand-on-hover";
 
     # Sync Login
     "services.sync.username" = "me@kiranshila.com";

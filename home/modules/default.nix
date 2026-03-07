@@ -41,7 +41,7 @@
   };
 
   # Enable the local-component to browserpass
-  # The extension still seems like it needs to be enabled manually
+  # Extension is force-enabled via Extensions.Locked in firefox/policies.nix
   programs.browserpass = {
     enable = true;
     browsers = ["firefox"];

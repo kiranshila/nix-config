@@ -57,4 +57,15 @@
     UrlbarInterventions = false;
     SkipOnboarding = true;
   };
+
+  Extensions.Locked = [
+    "browserpass@maximbaz.com"
+  ];
+
+  # Keep all extension buttons out of the toolbar by default
+  ExtensionSettings = {
+    "*" = {
+      default_area = "menupanel";
+    };
+  };
 }
