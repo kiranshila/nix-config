@@ -12,7 +12,7 @@
     # Import my public key and give it ultimate trust
     publicKeys = [
       {
-        source = ../../assets/publickey.gpg;
+        source = ../../../assets/publickey.gpg;
         trust = "ultimate";
       }
     ];

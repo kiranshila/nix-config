@@ -13,7 +13,7 @@
 
     # Import the generated hardware configuration
     # Filesystem, initd, etc.
-    ../hardware/kixtop.nix
+    ./hardware.nix
   ];
 
   # Enable SDDM Wayland

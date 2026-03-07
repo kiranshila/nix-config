@@ -12,7 +12,7 @@
     installScripts = ["nvidia"];
   };
 
-  imports = [./common.nix];
+  imports = [./modules];
 
   # Set my home directory
   home = {

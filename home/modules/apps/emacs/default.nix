@@ -75,6 +75,7 @@ in {
               tree-sitter-rust
               tree-sitter-javascript
               tree-sitter-typescript
+              tree-sitter-markdown
               # Our custom ones
               regex-grammar
               markdown-inline-grammar

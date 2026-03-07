@@ -4,6 +4,14 @@
   pkgs,
   ...
 }: {
+  # Password store
+  programs.password-store = {
+    enable = true;
+    settings = {
+      PASSWORD_STORE_DIR = "${config.home.homeDirectory}/sync/.password-store";
+    };
+  };
+
   # Enable fontconfig
   fonts.fontconfig.enable = true;
 
@@ -86,6 +94,20 @@
     (prismlauncher.override {
       additionalPrograms = [ffmpeg]; # Some mods need it
     })
+
+    # Fonts
+    julia-mono
+    iosevka-bin
+    (iosevka-bin.override {
+      variant = "Aile";
+    })
+    (iosevka-bin.override {
+      variant = "Slab";
+    })
+    (iosevka-bin.override {
+      variant = "SGr-IosevkaTermSS09";
+    })
+    nerd-fonts.fira-code
   ];
 
   # Font Config
@@ -97,19 +119,20 @@
 
   # Bring in everything else that might need more configuration
   imports = [
-    ./common/calendar.nix
-    ./common/emacs.nix
-    ./common/email.nix
-    ./common/firefox/firefox.nix
-    ./common/fish.nix
-    ./common/git.nix
-    ./common/gpg.nix
-    ./common/kicad.nix
-    ./common/kitty.nix
-    ./common/openscad.nix
-    ./common/pkgs.nix
-    ./common/ssh.nix
-    ./common/syncthing.nix
-    ./common/helix.nix
+    ./email.nix
+    ./apps/emacs
+    ./apps/firefox/firefox.nix
+    ./apps/gui.nix
+    ./apps/kicad.nix
+    ./apps/kitty.nix
+    ./apps/openscad.nix
+    ./tools/cli.nix
+    ./tools/fish.nix
+    ./tools/git.nix
+    ./tools/gpg.nix
+
+    ./tools/ssh.nix
+    ./services/calendar.nix
+    ./services/syncthing.nix
   ];
 }

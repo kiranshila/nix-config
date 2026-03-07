@@ -80,7 +80,7 @@
     # A function to automatically set the hostname and hostname-derived config
     commonModules = name:
       [
-        ./hosts/common.nix
+        ./nixos/common
         {networking.hostName = name;}
         {nixpkgs.overlays = overlays;}
         {
@@ -92,11 +92,11 @@
             backupFileExtension = "backup";
             sharedModules = homeModules;
             users = {
-              kiran = import ./home-manager/${name}.nix;
+              kiran = import ./home/${name}.nix;
             };
           };
         }
-        ./hosts/${name}.nix
+        ./nixos/${name}
       ]
       ++ nixosModules;
 
@@ -130,7 +130,7 @@
       # The home-config for the standalone install
       modules =
         [
-          ./home-manager/krocky.nix
+          ./home/krocky.nix
         ]
         ++ homeModules;
 
@@ -138,6 +138,29 @@
       extraSpecialArgs = {
         inherit nixgl;
       };
+    };
+
+    # Exported packages: custom derivations and nixGL-wrapped apps
+    packages.x86_64-linux = let
+      pkgs = import nixpkgs {
+        system = "x86_64-linux";
+        config.allowUnfree = true;
+        overlays = overlays;
+      };
+      nixGLWrap = pkg:
+        pkgs.runCommand "${pkg.name}-nixgl-wrapped" {
+          nativeBuildInputs = [pkgs.makeWrapper];
+        } ''
+          mkdir -p $out/bin
+          for bin in ${pkg}/bin/*; do
+            makeWrapper "${nixgl.packages.x86_64-linux.nixGLDefault}/bin/nixGL" \
+              "$out/bin/$(basename $bin)" \
+              --add-flags "$bin"
+          done
+        '';
+    in {
+      filmvert = nixGLWrap (pkgs.callPackage ./packages/filmvert.nix {});
+      kicad = nixGLWrap (pkgs.kicad-small.override {compressStep = false;});
     };
   };
 }

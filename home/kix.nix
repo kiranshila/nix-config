@@ -4,7 +4,10 @@
   lib,
   ...
 }: {
-  imports = [./common.nix];
+  imports = [
+    ./modules
+    ./modules/apps/openrct2.nix
+  ];
 
   # Set my home directory
   home = {
@@ -12,37 +15,28 @@
     homeDirectory = "/home/kiran";
   };
 
-  # Setup pass
-  programs.password-store = {
-    enable = true;
-    settings = {
-      PASSWORD_STORE_DIR = "/home/kiran/sync/.password-store";
-    };
-  };
-
-  # Sync to home and NAS
+  # Sync to Work, Laptop, and NAS
   services.syncthing.settings = {
     devices = {
       "Work" = {id = "XCYWCRK-ERH6M6W-2O2IZ2J-XGBDYC4-7AQFG5J-PFYB43U-JNRN7MU-JZVBFAG";};
-      "Home" = {id = "FD3VE6H-PABFAI2-KFJTYBN-WDJ4WRZ-XGOSAFB-6IYPQ45-4CJ2NOW-LZB6NA2";};
       "NAS" = {id = "PQRDY3U-HFLWGDI-B5KSHL2-ICXC6SM-WYPGZZ5-F553F3T-ZCYPSUR-STUJ5A4";};
+      "Laptop" = {id = "5YNXHAA-3O3C4DV-L23BD6P-R3XMQ73-5YBKUFP-5IQRGQ7-XKTCMLH-UVITPQG";};
     };
     folders = {
       "apybf-p3tmn" = {
         path = "/home/kiran/sync";
-        devices = ["NAS" "Home" "Work"];
+        devices = ["NAS" "Laptop" "Work"];
       };
     };
   };
 
-  # Kixtop-specific packages
-  home.packages = lib.mkMerge [
-    (with pkgs; [
-      protonup-qt
-      pkgs.discord
-    ])
+  # Kix-specific packages
+  home.packages = with pkgs; [
+    protonup-qt
+    via
   ];
 
+
   # NixOS State Version for Home
-  home.stateVersion = "23.11";
+  home.stateVersion = "25.05";
 }

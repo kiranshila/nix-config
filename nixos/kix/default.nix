@@ -14,7 +14,7 @@
 
     # Import the generated hardware configuration
     # Filesystem, initd, etc.
-    ../hardware/kix.nix
+    ./hardware.nix
   ];
 
   services.displayManager.sddm = {
@@ -58,6 +58,25 @@
   networking.firewall = {
     allowedTCPPorts = [8081];
   };
+
+  # Virtualization
+  virtualisation = {
+    spiceUSBRedirection.enable = true;
+    libvirtd = {
+      enable = true;
+      qemu = {
+        package = pkgs.qemu_kvm;
+        runAsRoot = true;
+        swtpm.enable = true;
+        vhostUserPackages = [pkgs.virtiofsd];
+      };
+    };
+  };
+  programs.virt-manager.enable = true;
+
+  # QMK keyboard firmware tools
+  hardware.keyboard.qmk.enable = true;
+  services.udev.packages = with pkgs; [via];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

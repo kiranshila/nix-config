@@ -223,9 +223,6 @@
     wget
     curl
     vim
-    alejandra
-    wineWow64Packages.stable
-    winetricks
     libusb1
     # iPhone
     libimobiledevice
@@ -248,8 +245,6 @@
   programs.nix-ld.enable = true;
 
   # Enable hardware support for yubikey/smartcards
-  # Don't use pcscd actually
-  #services.pcscd.enable = false;
   hardware.gpgSmartcards.enable = true;
 
   # Enables GnuPG agent with socket-activation for every user session.
@@ -270,42 +265,36 @@
   programs.partition-manager.enable = true;
 
   # Udev rules for USB things like tigard
-  services.udev.extraRules = ''
-    # FTDI
-    SUBSYSTEM=="usb", ATTR{idVendor}=="0403", GROUP="plugdev", MODE="0666"
-    # Siglent
-    SUBSYSTEM=="usb", ATTR{idVendor}=="f4ec", GROUP="plugdev", MODE="0666"
-    # Signal Hound
-    SUBSYSTEM=="usb", ATTR{idVendor}=="2817", GROUP="plugdev", MODE="0666",
-    # LadyBug
-    SUBSYSTEM=="usb", ATTR{idVendor}=="1a0d", GROUP="plugdev", MODE="0666",
-    # MiniCircuits
-    SUBSYSTEM=="usb", ATTR{idVendor}=="20ce", GROUP="plugdev", MODE="0666",
-    # National Instruments
-    SUBSYSTEM=="usb", ATTR{idVendor}=="3923", GROUP="plugdev", MODE="0666",
-    # 8BitDo Ultimate Bluetooth Controller's boot HID interface (seems to be shared by multiple 8BitDo devices)
-    SUBSYSTEM=="hidraw", ATTRS{idProduct}=="3208", ATTRS{idVendor}=="2dc8", TAG+="uaccess"
-    # 8BitDo Ultimate Bluetooth Controller receiver's HID interface (exposed when the controller is not connected)
-    # When it is exposed, the upgrade tool can detect the receiver and automatically put in in bootloader mode.
-    SUBSYSTEM=="hidraw", ATTRS{idProduct}=="3109", ATTRS{idVendor}=="2dc8", TAG+="uaccess"
-    # Rhode and Schwartz
-    SUBSYSTEM=="usb", ATTR{idVendor}=="0aad", GROUP="plugdev", MODE="0666",
-    # Jlink
-    SUBSYSTEM=="usb", ATTR{idVendor}=="1366", GROUP="plugdev", MODE="0666",
-    # Give hidraw access to all of plugdev
-    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", GROUP="plugdev", MODE="0666", TAG+="uaccess"
-    # LabJack
-    SUBSYSTEM=="usb", ATTR{idVendor}=="0CD5", GROUP="plugdev", MODE="0666",
-    # X-Rite i1 Display Pro
-    SUBSYSTEM=="usb", ATTR{idVendor}=="0765", GROUP="plugdev", MODE="0666",
-    # Rainy75 Keyboard
-    SUBSYSTEM=="usb", ATTR{idVendor}=="320f", GROUP="plugdev", MODE="0666",
-  '';
+  services.udev.extraRules = let
+    # Grant plugdev access to a USB vendor
+    usbVendor = vendor: ''SUBSYSTEM=="usb", ATTR{idVendor}=="${vendor}", GROUP="plugdev", MODE="0666"'';
+  in
+    lib.concatMapStringsSep "\n" usbVendor [
+      "0403" # FTDI
+      "F4EC" # Siglent
+      "2817" # Signal Hound
+      "1A0D" # LadyBug
+      "20CE" # MiniCircuits
+      "3923" # National Instruments
+      "0AAD" # Rohde & Schwarz
+      "1366" # Jlink
+      "0CD5" # LabJack
+      "0765" # X-Rite i1 Display Pro
+      "320F" # Rainy75 Keyboard
+    ]
+    + ''
+
+      # 8BitDo Ultimate Bluetooth Controller (boot HID + receiver)
+      SUBSYSTEM=="hidraw", ATTRS{idProduct}=="3208", ATTRS{idVendor}=="2dc8", TAG+="uaccess"
+      SUBSYSTEM=="hidraw", ATTRS{idProduct}=="3109", ATTRS{idVendor}=="2dc8", TAG+="uaccess"
+      # Give hidraw access to all of plugdev
+      KERNEL=="hidraw*", SUBSYSTEM=="hidraw", GROUP="plugdev", MODE="0666", TAG+="uaccess"
+    '';
 
   # Enable fwupmgr
   services.fwupd.enable = true;
 
-  # Try to mount NFS store
+  # NAS NFS mount — automounts on access, fails fast when unreachable (safe for laptop)
   fileSystems."/mnt/storage" = {
     device = "192.168.4.202:/volume1/storage";
     fsType = "nfs";
@@ -314,26 +303,15 @@
       "x-systemd.automount"
       "noauto"
       "x-systemd.idle-timeout=600"
+      "x-systemd.mount-timeout=10s"
+      "soft"
+      "timeo=30" # 3s before retrying
+      "retrans=2"
     ];
   };
 
   # Enable Zram swap
   zramSwap.enable = true;
-
-  # Virtualization
-  virtualisation = {
-    spiceUSBRedirection.enable = true;
-    libvirtd = {
-      enable = true;
-      qemu = {
-        package = pkgs.qemu_kvm;
-        runAsRoot = true;
-        swtpm.enable = true;
-        vhostUserPackages = [pkgs.virtiofsd];
-      };
-    };
-  };
-  programs.virt-manager.enable = true;
 
   # Catppuccin NixOS (only handles a few things that are sytem-level)
   catppuccin = {
@@ -354,7 +332,4 @@
   # Tailscale
   services.tailscale.enable = true;
 
-  # QMK
-  hardware.keyboard.qmk.enable = true;
-  services.udev.packages = with pkgs; [via];
 }
