@@ -159,7 +159,6 @@
           done
         '';
     in {
-      filmvert = nixGLWrap (pkgs.callPackage ./packages/filmvert.nix {});
       kicad = nixGLWrap (pkgs.kicad-small.override {compressStep = false;});
     };
   };
