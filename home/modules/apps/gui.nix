@@ -21,5 +21,6 @@
       prusa-slicer
       veracrypt
       qtpass
+      element-desktop
     ];
 }
