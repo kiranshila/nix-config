@@ -22,5 +22,6 @@
       veracrypt
       qtpass
       element-desktop
+      signal-desktop
     ];
 }
