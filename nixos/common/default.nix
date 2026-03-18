@@ -271,16 +271,17 @@
   in
     lib.concatMapStringsSep "\n" usbVendor [
       "0403" # FTDI
-      "F4EC" # Siglent
+      "f4ec" # Siglent
       "2817" # Signal Hound
-      "1A0D" # LadyBug
-      "20CE" # MiniCircuits
+      "1a0d" # LadyBug
+      "20ce" # MiniCircuits
       "3923" # National Instruments
-      "0AAD" # Rohde & Schwarz
+      "0aad" # Rohde & Schwarz
       "1366" # Jlink
-      "0CD5" # LabJack
+      "0cd5" # LabJack
       "0765" # X-Rite i1 Display Pro
-      "320F" # Rainy75 Keyboard
+      "320f" # Rainy75 Keyboard
+      "2e8a" # PicoProbe
     ]
     + ''
 
@@ -331,5 +332,4 @@
 
   # Tailscale
   services.tailscale.enable = true;
-
 }
