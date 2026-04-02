@@ -43,6 +43,18 @@
         proxyJump = "ovro";
         dynamicForwards = [{port = 1080;}];
       };
+
+      "ant1" = {
+        user = "antovro";
+        hostname = "dsa-raspi-cm4-0001.ovro.pvt";
+        proxyJump = "ovro";
+      };
+
+      "ant6" = {
+        user = "antovro";
+        hostname = "dsa-raspi-cm4-0002.ovro.pvt";
+        proxyJump = "ovro";
+      };
     };
   };
 }
