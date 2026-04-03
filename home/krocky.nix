@@ -38,7 +38,6 @@
   # We have to handle the SSH_AUTH_SOCK manually
   programs.fish.interactiveShellInit = lib.mkAfter ''
     export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-    gpgconf --launch gpg-agent
   '';
 
   # Add syncthing config to sync to home, laptop, and NAS
