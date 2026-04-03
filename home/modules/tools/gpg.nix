@@ -38,6 +38,11 @@
       no-symkey-cache = true;
       use-agent = true;
       throw-keyids = true;
+      # Prevent gpg from auto-launching a daemon agent. home-manager's
+      # publicKeys activation runs in a system service before the user
+      # systemd session is ready, which would otherwise spawn a second
+      # gpg-agent daemon that conflicts with the socket-activated one.
+      no-autostart = true;
     };
   };
 
@@ -52,7 +57,11 @@
     defaultCacheTtl = 60;
     maxCacheTtl = 120;
     # Set a default, but allow for overrides
-    pinentry.package = lib.mkDefault pkgs.pinentry-qt;
+    # pinentry-qt on KDE Wayland fails to register with the XDG portal
+    # (no .desktop file for org.gnupg.pinentry-qt), causing PIN dialogs to
+    # never appear and hanging all GPG/smartcard operations.
+    # pinentry-gnome3 handles Wayland natively and works correctly on KDE.
+    pinentry.package = lib.mkDefault pkgs.pinentry-gnome3;
     enableScDaemon = true;
     extraConfig = ''
       ttyname $GPG_TTY
