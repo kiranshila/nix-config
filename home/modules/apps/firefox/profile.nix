@@ -82,7 +82,7 @@
     "widget.gtk.rounded-bottom-corners.enabled" = true;
 
     "browser.compactmode.show" = true;
-    "browser.tabs.allow_transparent_browser" = true;
+    "browser.tabs.allow_transparent_browser" = false;
     "browser.uidensity" = 1;
 
     # Sidebar
