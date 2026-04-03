@@ -6,8 +6,8 @@
   bosl2 = pkgs.fetchFromGitHub {
     owner = "BelfrySCAD";
     repo = "BOSL2";
-    rev = "master";
-    sha256 = "sha256-i8N3L0W/lP4Du+3VCOx8gN594wJDRmikVei/fWGW2PU=";
+    rev = "fb625bf243af208f4a15747b99e5e1c96a39ea9f";
+    sha256 = "sha256-7faq+PkZP/E8VLxun7yQPXNUZcRQFzM0FLLPprgyu/c=";
   };
 in {
   # OpenSCAD, the binary
