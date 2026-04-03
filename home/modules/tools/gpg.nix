@@ -7,7 +7,7 @@
   programs.gpg = {
     enable = true;
     scdaemonSettings = {
-      disable-ccid = false; # Don't use PCSC at all, only use smart card with GPG
+      disable-ccid = false; # Enable CCID smartcard support (don't disable it)
     };
     # Import my public key and give it ultimate trust
     publicKeys = [
