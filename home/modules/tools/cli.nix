@@ -1,8 +1,5 @@
 # CLI and utility packages
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   home.packages = with pkgs; [
     # Very important
     cowsay
@@ -52,5 +49,8 @@
 
     # science/data
     julia-bin
+
+    # Slop Generation
+    claude-code
   ];
 }
