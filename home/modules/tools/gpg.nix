@@ -2,7 +2,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   # Configure gpg
   programs.gpg = {
     enable = true;
@@ -56,12 +57,7 @@
     enableBashIntegration = true;
     defaultCacheTtl = 60;
     maxCacheTtl = 120;
-    # Set a default, but allow for overrides
-    # pinentry-qt on KDE Wayland fails to register with the XDG portal
-    # (no .desktop file for org.gnupg.pinentry-qt), causing PIN dialogs to
-    # never appear and hanging all GPG/smartcard operations.
-    # pinentry-gnome3 handles Wayland natively and works correctly on KDE.
-    pinentry.package = lib.mkDefault pkgs.pinentry-gnome3;
+    pinentry.package = lib.mkDefault pkgs.pinentry-qt;
     enableScDaemon = true;
     extraConfig = ''
       ttyname $GPG_TTY
