@@ -89,10 +89,11 @@
 (setq! +latex-viewers '(pdf-tools))
 
 ;; OpenSCAD
+(after! eglot
+  (add-to-list 'eglot-server-programs '(scad-mode . ("openscad-lsp"))))
+
 (use-package! scad-mode
   :config
-  ;; Enable the LSP
-  (set-eglot-client! 'scad-mode '("openscad-lsp"))
   (add-hook 'scad-mode-local-vars-hook #'lsp! 'append)
   ;; Preview mode switches to emacs mode
   (add-to-list 'evil-emacs-state-modes 'scad-preview-mode)
