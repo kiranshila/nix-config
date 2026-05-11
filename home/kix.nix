@@ -36,7 +36,6 @@
     via
   ];
 
-
   # NixOS State Version for Home
   home.stateVersion = "25.05";
 }

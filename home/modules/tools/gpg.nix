@@ -2,8 +2,7 @@
   pkgs,
   lib,
   ...
-}:
-{
+}: {
   # Configure gpg
   programs.gpg = {
     enable = true;

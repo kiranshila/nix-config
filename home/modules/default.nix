@@ -3,8 +3,7 @@
   config,
   pkgs,
   ...
-}:
-{
+}: {
   # Password store
   programs.password-store = {
     enable = true;
@@ -45,7 +44,7 @@
   # Extension is force-enabled via Extensions.Locked in firefox/policies.nix
   programs.browserpass = {
     enable = true;
-    browsers = [ "firefox" ];
+    browsers = ["firefox"];
   };
 
   # cat replacement
@@ -93,7 +92,7 @@
   # Minecraft
   home.packages = with pkgs; [
     (prismlauncher.override {
-      additionalPrograms = [ ffmpeg ]; # Some mods need it
+      additionalPrograms = [ffmpeg]; # Some mods need it
     })
 
     # Fonts
@@ -113,9 +112,9 @@
 
   # Font Config
   fonts.fontconfig.defaultFonts = {
-    sansSerif = [ "DejaVu Sans" ];
-    serif = [ "DejaVu Serif" ];
-    monospace = [ "DejaVu Sans Mono" ];
+    sansSerif = ["DejaVu Sans"];
+    serif = ["DejaVu Serif"];
+    monospace = ["DejaVu Sans Mono"];
   };
 
   # Slop generation

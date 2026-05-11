@@ -1,6 +1,5 @@
 # CLI and utility packages
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   home.packages = with pkgs; [
     # Very important
     cowsay
@@ -15,11 +14,12 @@
     pciutils
     alejandra
     (aspellWithDicts (
-      dicts: with dicts; [
-        en
-        en-computers
-        en-science
-      ]
+      dicts:
+        with dicts; [
+          en
+          en-computers
+          en-science
+        ]
     ))
     unzip
     dosfstools
