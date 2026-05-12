@@ -28,6 +28,8 @@
     usbutils
     iperf3
     htop
+    helix
+    nix-output-monitor
 
     # Wine
     wineWow64Packages.stable
