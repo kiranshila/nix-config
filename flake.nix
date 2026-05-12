@@ -22,7 +22,7 @@
 
     # NixGL
     nixgl = {
-      url = "github:nix-community/nixGL";
+      url = "github:TheTeXnician/nixGL/update-for-latest-nixpkgs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
