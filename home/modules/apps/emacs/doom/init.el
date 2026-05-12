@@ -72,7 +72,7 @@
  (web +lsp +tree-sitter)   
  (yaml +lsp +tree-sitter)     
  (javascript +lsp +tree-sitter)
- (julia +lsp +tree-sitter +snail)
+ (julia +lsp +tree-sitter)
  (nix +lsp +tree-sitter)
 
  :email

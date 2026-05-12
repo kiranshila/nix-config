@@ -86,11 +86,11 @@
 (setq! mouse-wheel-flip-direction t)
 
 ;; pdf-tools for latex preview
-(setq! +latex-viewers '(pdf-tools))
+(setq +latex-viewers '(pdf-tools))
 
 ;; OpenSCAD
 (after! eglot
-  (add-to-list 'eglot-server-programs '(scad-mode . ("openscad-lsp"))))
+  (add-to-list 'eglot-server-programs '(scad-mode . ("openscad-lsp" "--stdio"))))
 
 (use-package! scad-mode
   :config
@@ -121,10 +121,12 @@
     :desc "Rotate z+"          "M" #'scad-preview-rotate-z+)))
 
 ;; TOML
+(after! eglot
+  (add-to-list 'eglot-server-programs '(toml-ts-mode . ("taplo" "lsp" "stdio"))))
+
 (use-package! toml-ts-mode
   :mode "\\.toml\\'"
   :config
-  (set-eglot-client! 'toml-ts-mode '("taplo" "lsp" "stdio"))
   (add-hook 'toml-ts-mode-local-vars-hook #'lsp! 'append))
 
 ;; Eglot configuration
@@ -139,6 +141,12 @@
                   :nil
                   (:formatting (:command ["alejandra" "--"])))))
 
+(after! eglot
+  (add-to-list 'eglot-server-programs
+               '(typst-ts-mode . ("tinymist"
+                                  :initializationOptions
+                                  (:exportPdf "onSave")))))
+
 (use-package! typst-ts-mode
   :defer t
   :init
@@ -148,9 +156,6 @@
   (typst-ts-mode-enable-raw-blocks-highlight t)
   (typst-ts-fontification-precision-level 'max)
   :config
-  (set-eglot-client! 'typst-ts-mode '("tinymist"
-                                       :initializationOptions
-                                       (:exportPdf "onSave")))
   (add-hook 'typst-ts-mode-local-vars-hook #'lsp! 'append)
   (set-formatter! 'typstyle '("typstyle") :modes '(typst-ts-mode))
   (setq-hook! 'typst-ts-mode-hook +format-with 'typstyle)
