@@ -16,7 +16,6 @@ in {
     DEFAULT_BROWSER = package;
     BROWSER = package;
   };
-
   programs.firefox = {
     inherit package;
     enable = true;

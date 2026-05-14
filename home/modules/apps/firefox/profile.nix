@@ -103,6 +103,10 @@
     # Open PDFs inline
     "browser.download.open_pdf_attachments_inline" = true;
 
+    # Non-NixOS: loading system CA roots via NSS trust_anchors::pkcs11 fails
+    # mid-handshake on RHEL 9, producing SEC_ERROR_LIBRARY_FAILURE on affected sites.
+    "security.enterprise_roots.enabled" = false;
+
     # Pls no AI
     "browser.ml.chat.enabled" = false;
     "browser.ml.chat.page.footerBadge" = false;
