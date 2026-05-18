@@ -10,50 +10,50 @@
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
-    matchBlocks = {
+    settings = {
       "*" = {
-        identitiesOnly = true;
-        identityFile = "~/.ssh/id_rsa_yubikey.pub";
+        IdentitiesOnly = true;
+        IdentityFile = "~/.ssh/id_rsa_yubikey.pub";
       };
 
       "ovro" = {
-        hostname = "ssh.ovro.caltech.edu";
-        user = "kiran";
+        HostName = "ssh.ovro.caltech.edu";
+        User = "kiran";
       };
 
       "grex" = {
-        hostname = "grex-ovro.ovro.pvt";
-        proxyJump = "ovro";
-        user = "user";
+        HostName = "grex-ovro.ovro.pvt";
+        ProxyJump = "ovro";
+        User = "user";
       };
 
       "github.com" = {
-        user = "git";
+        User = "git";
       };
 
       "sprite" = {
-        user = "sprite";
-        hostname = "turtle.ovro.pvt";
-        proxyJump = "ovro";
+        User = "sprite";
+        HostName = "turtle.ovro.pvt";
+        ProxyJump = "ovro";
       };
 
       "mvp03" = {
-        user = "kshila";
-        hostname = "mvp03mncopl.ovro.pvt";
-        proxyJump = "ovro";
-        dynamicForwards = [{port = 1080;}];
+        User = "kshila";
+        HostName = "mvp03mncopl.ovro.pvt";
+        ProxyJump = "ovro";
+        DynamicForward = [{port = 1080;}];
       };
 
       "ant1" = {
-        user = "antovro";
-        hostname = "dsa-raspi-cm4-0001.ovro.pvt";
-        proxyJump = "ovro";
+        User = "antovro";
+        HostName = "dsa-raspi-cm4-0001.ovro.pvt";
+        ProxyJump = "ovro";
       };
 
       "ant6" = {
-        user = "antovro";
-        hostname = "dsa-raspi-cm4-0002.ovro.pvt";
-        proxyJump = "ovro";
+        User = "antovro";
+        HostName = "dsa-raspi-cm4-0002.ovro.pvt";
+        ProxyJump = "ovro";
       };
     };
   };
