@@ -120,6 +120,51 @@
   # Slop generation
   programs.claude-code = {
     enable = true;
+    settings = {
+      hooks = {
+        PostToolUse = [
+          {
+            hooks = [
+              {
+                command = "nix fmt $(jq -r '.tool_input.file_path' <<< '$CLAUDE_TOOL_INPUT')";
+                type = "command";
+              }
+            ];
+            matcher = "Edit|MultiEdit|Write";
+          }
+        ];
+        PreToolUse = [
+          {
+            hooks = [
+              {
+                command = "echo 'Running command: $CLAUDE_TOOL_INPUT'";
+                type = "command";
+              }
+            ];
+            matcher = "Bash";
+          }
+        ];
+      };
+      includeCoAuthoredBy = false;
+      permissions = {
+        allow = [
+          "Bash(git diff:*)"
+        ];
+        ask = [
+          "Bash(git push:*)"
+        ];
+        deny = [
+          "Bash(curl:*)"
+        ];
+        disableBypassPermissionsMode = "disable";
+      };
+      statusLine = {
+        command = "input=$(cat); echo \"[$(echo \"$input\" | jq -r '.model.display_name')] 📁 $(basename \"$(echo \"$input\" | jq -r '.workspace.current_dir')\")\"";
+        padding = 0;
+        type = "command";
+      };
+      theme = "dark";
+    };
   };
 
   # Bring in everything else that might need more configuration
