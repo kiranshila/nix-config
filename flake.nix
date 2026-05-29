@@ -75,6 +75,7 @@
     overlays = [
       nixgl.overlay
       nur.overlays.default
+      (import ./overlays/cockatrice.nix)
     ];
 
     # A function to automatically set the hostname and hostname-derived config
