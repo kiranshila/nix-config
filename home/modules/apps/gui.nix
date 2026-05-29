@@ -23,5 +23,6 @@
       qtpass
       element-desktop
       signal-desktop
+      zoom-us
     ];
 }
