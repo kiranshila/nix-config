@@ -1,3 +1,3 @@
 final: prev: {
-  cockatrice = final.callPackage ../packages/cockatrice { };
+  cockatrice = final.callPackage ../packages/cockatrice {};
 }
