@@ -84,9 +84,19 @@
   # - thunderbird
   catppuccin = {
     enable = true;
+    autoEnable = true;
     flavor = "macchiato";
     thunderbird.profile = "default";
     firefox.enable = false;
+  };
+
+  # Don't build the home-manager options manual (unused). Its manpage
+  # generation runs nixosOptionsDoc, whose intermediate options.json
+  # derivation embeds the nixpkgs source path without context and warns.
+  manual = {
+    manpages.enable = false;
+    html.enable = false;
+    json.enable = false;
   };
 
   # Minecraft
@@ -120,6 +130,7 @@
   # Slop generation
   programs.claude-code = {
     enable = true;
+    package = pkgs.llm-agents.claude-code; # From the overlay
     settings = {
       hooks = {
         PostToolUse = [
@@ -158,11 +169,6 @@
         ];
         disableBypassPermissionsMode = "disable";
       };
-      statusLine = {
-        command = "input=$(cat); echo \"[$(echo \"$input\" | jq -r '.model.display_name')] 📁 $(basename \"$(echo \"$input\" | jq -r '.workspace.current_dir')\")\"";
-        padding = 0;
-        type = "command";
-      };
       theme = "dark";
     };
   };
@@ -171,6 +177,7 @@
   imports = [
     ./email.nix
     ./apps/emacs
+    ./apps/discord.nix
     ./apps/firefox/firefox.nix
     ./apps/gui.nix
     ./apps/kicad.nix

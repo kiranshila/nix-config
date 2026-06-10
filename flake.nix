@@ -3,7 +3,6 @@
 
   # Sources for all nix flakes that make up the config
   inputs = {
-    # NixPkgs unstable
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     flake-parts = {
@@ -46,6 +45,19 @@
 
     # Catppuccin Everything
     catppuccin.url = "github:catppuccin/nix";
+
+    # Unfucked Discord
+    nixcord = {
+      url = "github:FlameFlag/nixcord";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+
+    # Autoslop
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
+    };
   };
 
   outputs = {
@@ -58,6 +70,8 @@
     nix-doom,
     nur,
     catppuccin,
+    nixcord,
+    llm-agents,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -65,6 +79,7 @@
     homeModules = [
       nix-doom.homeModule
       catppuccin.homeModules.catppuccin
+      nixcord.homeModules.nixcord
     ];
 
     nixosModules = [
@@ -76,6 +91,7 @@
       nixgl.overlay
       nur.overlays.default
       (import ./overlays/cockatrice.nix)
+      llm-agents.overlays.default
     ];
 
     # A function to automatically set the hostname and hostname-derived config

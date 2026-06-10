@@ -51,5 +51,11 @@
 
     # science/data
     julia-bin
+
+    zulip-term
+
+    # slop
+    llm-agents.qwen-code
+    llm-agents.opencode
   ];
 }
