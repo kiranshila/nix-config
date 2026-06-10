@@ -9,7 +9,6 @@
       onlyoffice-desktopeditors
       looking-glass-client
       slack
-      zulip
       musescore
       muse-sounds-manager
       zotero
