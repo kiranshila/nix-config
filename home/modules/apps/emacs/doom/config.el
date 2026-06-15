@@ -1,10 +1,10 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
 ;; Personal information
-(setq! user-full-name "Kiran Shila" user-mail-address "me@kiranshila.com")
+(setq user-full-name "Kiran Shila" user-mail-address "me@kiranshila.com")
 
 ;; Fix Shell
-(setq! shell-file-name (executable-find "bash"))
+(setq shell-file-name (executable-find "bash"))
 (setq-default vterm-shell (executable-find "fish"))
 
 ;; Fix SSH Agent
@@ -17,18 +17,18 @@
   (setq! catppuccin-flavor 'macchiato)
   (catppuccin-reload))
 
-(setq! display-line-numbers-type t)
-(setq! doom-theme 'catppuccin
-       doom-font (font-spec :family "Iosevka Term SS09" :size 16)
-       doom-symbol-font (font-spec :family "JuliaMono" :size 16)
-       doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 16)
-       doom-serif-font (font-spec :family "Iosevka Slab" :size 16))
+(setq display-line-numbers-type t)
+(setq doom-theme 'catppuccin
+      doom-font (font-spec :family "Iosevka Term SS09" :size 16)
+      doom-symbol-font (font-spec :family "JuliaMono" :size 16)
+      doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 16)
+      doom-serif-font (font-spec :family "Iosevka Slab" :size 16))
 
 ;; Nyan Nyan
 (after! doom-modeline (nyan-mode))
 
 ;; Plenty O' Ram
-(setq! so-long-threshold 9000)
+(setq so-long-threshold 9000)
 
 ;; Buffer and window nav
 (map!
@@ -64,9 +64,9 @@
  :ni "C-M-s-j" #'sp-join-sexp
  :ni "C-M-s-|" #'sp-split-sexp)
 
-(setq! projectile-project-search-path `("~/sync/Projects" "~/src"))
+(setq projectile-project-search-path `("~/sync/Projects" "~/src"))
 
-(setq! org-directory "~/sync/org/")
+(setq org-directory "~/sync/org/")
 
 (use-package! smartparens
   :hook ((scheme-mode . smartparens-strict-mode)
@@ -82,43 +82,11 @@
   (add-hook 'eglot-managed-mode-hook #'eglot-inlay-hints-mode))
 
 ;; Enable horizontal scrolling
-(setq! mouse-wheel-tilt-scroll t)
-(setq! mouse-wheel-flip-direction t)
+(setq mouse-wheel-tilt-scroll t)
+(setq mouse-wheel-flip-direction t)
 
 ;; pdf-tools for latex preview
 (setq +latex-viewers '(pdf-tools))
-
-;; OpenSCAD
-(after! eglot
-  (add-to-list 'eglot-server-programs '(scad-mode . ("openscad-lsp" "--stdio"))))
-
-(use-package! scad-mode
-  :config
-  (add-hook 'scad-mode-local-vars-hook #'lsp! 'append)
-  ;; Preview mode switches to emacs mode
-  (add-to-list 'evil-emacs-state-modes 'scad-preview-mode)
-  (map!
-   (:localleader
-    (:map scad-mode-map
-     :desc "Export"            "e" #'scad-export
-     :desc "Open"              "o" #'scad-open
-     :desc "Preview"           "p" #'scad-preview))
-   (:map scad-preview-mode-map
-    :desc "Distance+"          "[" #'scad-preview-distance+
-    :desc "Distance-"          "]" #'scad-preview-distance-
-    :desc "Toggle Projection"  "p" #'scad-preview-projection
-    :desc "Translate x-"       "h" #'scad-preview-translate-x-
-    :desc "Translate x+"       "l" #'scad-preview-translate-x+
-    :desc "Translate y-"       "j" #'scad-preview-translate-y-
-    :desc "Translate y+"       "k" #'scad-preview-translate-y+
-    :desc "Translate z-"       "n" #'scad-preview-translate-z-
-    :desc "Translate z+"       "m" #'scad-preview-translate-z+
-    :desc "Rotate x-"          "H" #'scad-preview-rotate-x-
-    :desc "Rotate x+"          "L" #'scad-preview-rotate-x+
-    :desc "Rotate y-"          "J" #'scad-preview-rotate-y-
-    :desc "Rotate y+"          "K" #'scad-preview-rotate-y+
-    :desc "Rotate z-"          "N" #'scad-preview-rotate-z-
-    :desc "Rotate z+"          "M" #'scad-preview-rotate-z+)))
 
 ;; TOML
 (after! eglot

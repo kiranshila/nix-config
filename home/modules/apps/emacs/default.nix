@@ -4,6 +4,7 @@
   ...
 }: let
   # These follow from clojure-ts-grammar-recipes
+  # See: https://github.com/clojure-emacs/clojure-ts-mode/blob/ba6de87b0acb5aa5483f6012611b30f6bf0414f3/clojure-ts-mode.el#L3074
   clojure-ts-grammar = pkgs.tree-sitter.buildGrammar {
     language = "clojure";
     version = "unstable-20250526";
@@ -13,18 +14,6 @@
       rev = "69070d2e4563f8f58c7f57b0c8e093a08d7a5814";
       sha256 = "sha256-+Miraf8kI8rZg7SYdfNM+mb78k9xNDUKYg3VTFzUHMo=";
     };
-  };
-
-  markdown-inline-grammar = pkgs.tree-sitter.buildGrammar rec {
-    language = "markdown_inline";
-    version = "0.4.1";
-    src = pkgs.fetchFromGitHub {
-      owner = "MDeiml";
-      repo = "tree-sitter-markdown";
-      tag = "v${version}";
-      sha256 = "sha256-Oe2iL5b1Cyv+dK0nQYFNLCCOCe+93nojxt6ukH2lEmU=";
-    };
-    sourceRoot = "source/tree-sitter-markdown-inline";
   };
 
   regex-grammar = pkgs.tree-sitter.buildGrammar rec {
@@ -47,6 +36,18 @@
       repo = language;
       rev = "master";
       sha256 = "sha256-s/9R3DKA6dix6BkU4mGXaVggE4bnzOyu20T1wuqHQxk=";
+    };
+  };
+
+  # Required by scad-ts-mode
+  scad-grammar = pkgs.tree-sitter.buildGrammar rec {
+    language = "openscad";
+    version = "0.7.1";
+    src = pkgs.fetchFromGitHub {
+      owner = "openscad";
+      repo = "tree-sitter-openscad";
+      rev = "v${version}";
+      sha256 = "sha256-2+Ii4uqqmFkuRQEarCUY7dNaR2uk3cvcWleE91Gs5a8=";
     };
   };
 in {
@@ -76,11 +77,14 @@ in {
               tree-sitter-javascript
               tree-sitter-typescript
               tree-sitter-markdown
+              tree-sitter-markdown-inline
+              tree-sitter-julia
+              tree-sitter-html
               # Our custom ones
               regex-grammar
-              markdown-inline-grammar
               clojure-ts-grammar
               typst-grammar
+              scad-grammar
             ]))
       ];
     experimentalFetchTree = true;
