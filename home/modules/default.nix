@@ -7,6 +7,7 @@
   # Password store
   programs.password-store = {
     enable = true;
+    package = pkgs.pass.withExtensions (ext: with ext; [ext.pass-otp]);
     settings = {
       PASSWORD_STORE_DIR = "${config.home.homeDirectory}/sync/.password-store";
     };

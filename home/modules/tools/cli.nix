@@ -57,5 +57,6 @@
     # slop
     llm-agents.qwen-code
     llm-agents.opencode
+
   ];
 }
