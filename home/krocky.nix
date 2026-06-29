@@ -4,7 +4,14 @@
   nixgl,
   lib,
   ...
-}: {
+}: let
+  syncDevices = import ./modules/services/syncthing-devices.nix;
+  # Share the ~/sync folder with the named devices.
+  syncWith = names: {
+    devices = lib.genAttrs names (name: {id = syncDevices.${name};});
+    folders."apybf-p3tmn".devices = names;
+  };
+in {
   # Setup NixGL
   targets.genericLinux.nixGL = {
     packages = nixgl.packages;
@@ -40,30 +47,8 @@
     export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
   '';
 
-  # Add syncthing config to sync to home, laptop, and NAS
-  services.syncthing.settings = {
-    devices = {
-      "Laptop" = {
-        id = "5YNXHAA-3O3C4DV-L23BD6P-R3XMQ73-5YBKUFP-5IQRGQ7-XKTCMLH-UVITPQG";
-      };
-      "Home" = {
-        id = "FD3VE6H-PABFAI2-KFJTYBN-WDJ4WRZ-XGOSAFB-6IYPQ45-4CJ2NOW-LZB6NA2";
-      };
-      "NAS" = {
-        id = "PQRDY3U-HFLWGDI-B5KSHL2-ICXC6SM-WYPGZZ5-F553F3T-ZCYPSUR-STUJ5A4";
-      };
-    };
-    folders = {
-      "apybf-p3tmn" = {
-        path = "/home/kshila/sync";
-        devices = [
-          "NAS"
-          "Home"
-          "Laptop"
-        ];
-      };
-    };
-  };
+  # Sync to Home, Laptop, and NAS
+  services.syncthing.settings = syncWith ["NAS" "Home" "Laptop"];
 
   # Enable just work email on work machine
   accounts.email.accounts = {

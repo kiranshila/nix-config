@@ -1,0 +1,8 @@
+# Stable syncthing device IDs, shared by all hosts.
+# Each host references the subset it syncs with (excluding itself).
+{
+  Home = "FD3VE6H-PABFAI2-KFJTYBN-WDJ4WRZ-XGOSAFB-6IYPQ45-4CJ2NOW-LZB6NA2"; # kix
+  Laptop = "5YNXHAA-3O3C4DV-L23BD6P-R3XMQ73-5YBKUFP-5IQRGQ7-XKTCMLH-UVITPQG"; # kixtop
+  Work = "XCYWCRK-ERH6M6W-2O2IZ2J-XGBDYC4-7AQFG5J-PFYB43U-JNRN7MU-JZVBFAG"; # krocky
+  NAS = "PQRDY3U-HFLWGDI-B5KSHL2-ICXC6SM-WYPGZZ5-F553F3T-ZCYPSUR-STUJ5A4";
+}

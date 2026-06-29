@@ -1,9 +1,15 @@
 {
   pkgs,
-  config,
   lib,
   ...
-}: {
+}: let
+  syncDevices = import ./modules/services/syncthing-devices.nix;
+  # Share the ~/sync folder with the named devices.
+  syncWith = names: {
+    devices = lib.genAttrs names (name: {id = syncDevices.${name};});
+    folders."apybf-p3tmn".devices = names;
+  };
+in {
   imports = [./modules];
 
   # Set my home directory
@@ -12,27 +18,12 @@
     homeDirectory = "/home/kiran";
   };
 
-  # Sync to home and NAS
-  services.syncthing.settings = {
-    devices = {
-      "Work" = {id = "XCYWCRK-ERH6M6W-2O2IZ2J-XGBDYC4-7AQFG5J-PFYB43U-JNRN7MU-JZVBFAG";};
-      "Home" = {id = "FD3VE6H-PABFAI2-KFJTYBN-WDJ4WRZ-XGOSAFB-6IYPQ45-4CJ2NOW-LZB6NA2";};
-      "NAS" = {id = "PQRDY3U-HFLWGDI-B5KSHL2-ICXC6SM-WYPGZZ5-F553F3T-ZCYPSUR-STUJ5A4";};
-    };
-    folders = {
-      "apybf-p3tmn" = {
-        path = "/home/kiran/sync";
-        devices = ["NAS" "Home" "Work"];
-      };
-    };
-  };
+  # Sync to Home, Work, and NAS
+  services.syncthing.settings = syncWith ["NAS" "Home" "Work"];
 
   # Kixtop-specific packages
-  home.packages = lib.mkMerge [
-    (with pkgs; [
-      protonup-qt
-      pkgs.discord
-    ])
+  home.packages = with pkgs; [
+    protonup-qt
   ];
 
   # NixOS State Version for Home

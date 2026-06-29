@@ -23,7 +23,7 @@
       owner = "tree-sitter";
       repo = "tree-sitter-regex";
       tag = "v${version}";
-      sha256 = "sha256-GNWntm8sgqVt6a+yFVncjkoMOe7CnXX9Qmpwy6KcFyU";
+      sha256 = "sha256-GNWntm8sgqVt6a+yFVncjkoMOe7CnXX9Qmpwy6KcFyU=";
     };
   };
 
@@ -92,9 +92,7 @@ in {
 
   # Emacs-required packages
   home.packages = with pkgs; [
-    # Tools
-    ripgrep
-    fd
+    # Tools (ripgrep/fd come from tools/cli.nix)
     jq
 
     # Fonts

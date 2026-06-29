@@ -138,7 +138,8 @@
           {
             hooks = [
               {
-                command = "nix fmt $(jq -r '.tool_input.file_path' <<< '$CLAUDE_TOOL_INPUT')";
+                # Hook input arrives as JSON on stdin; format the edited file
+                command = "jq -r '.tool_input.file_path' | xargs --no-run-if-empty nix fmt";
                 type = "command";
               }
             ];
@@ -149,7 +150,7 @@
           {
             hooks = [
               {
-                command = "echo 'Running command: $CLAUDE_TOOL_INPUT'";
+                command = "jq -r '\"Running command: \" + .tool_input.command'";
                 type = "command";
               }
             ];

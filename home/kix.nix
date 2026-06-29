@@ -1,9 +1,15 @@
 {
   pkgs,
-  config,
   lib,
   ...
-}: {
+}: let
+  syncDevices = import ./modules/services/syncthing-devices.nix;
+  # Share the ~/sync folder with the named devices.
+  syncWith = names: {
+    devices = lib.genAttrs names (name: {id = syncDevices.${name};});
+    folders."apybf-p3tmn".devices = names;
+  };
+in {
   imports = [
     ./modules
     ./modules/apps/openrct2.nix
@@ -16,19 +22,7 @@
   };
 
   # Sync to Work, Laptop, and NAS
-  services.syncthing.settings = {
-    devices = {
-      "Work" = {id = "XCYWCRK-ERH6M6W-2O2IZ2J-XGBDYC4-7AQFG5J-PFYB43U-JNRN7MU-JZVBFAG";};
-      "NAS" = {id = "PQRDY3U-HFLWGDI-B5KSHL2-ICXC6SM-WYPGZZ5-F553F3T-ZCYPSUR-STUJ5A4";};
-      "Laptop" = {id = "5YNXHAA-3O3C4DV-L23BD6P-R3XMQ73-5YBKUFP-5IQRGQ7-XKTCMLH-UVITPQG";};
-    };
-    folders = {
-      "apybf-p3tmn" = {
-        path = "/home/kiran/sync";
-        devices = ["NAS" "Laptop" "Work"];
-      };
-    };
-  };
+  services.syncthing.settings = syncWith ["NAS" "Laptop" "Work"];
 
   # Kix-specific packages
   home.packages = with pkgs; [

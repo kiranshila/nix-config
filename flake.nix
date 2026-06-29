@@ -178,5 +178,8 @@
     in {
       kicad = nixGLWrap (pkgs.kicad-small.override {compressStep = false;});
     };
+
+    # `nix fmt` formatter (also used by the claude-code PostToolUse hook)
+    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
   };
 }

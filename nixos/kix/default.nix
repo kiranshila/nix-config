@@ -44,7 +44,7 @@
       "vfio_iommu_type1"
     ];
 
-    # These must be baked into the initrd image, kernel params pick them up too lake because nvidia
+    # These must be baked into the initrd image, kernel params pick them up too late because nvidia
     # Add Quadro, its audio, and the firewire controller (both the TI PCI controller and the PCIe to PCI bridge chip on the same card)
     extraModprobeConfig = ''
       softdep nvidia pre: vfio-pci
