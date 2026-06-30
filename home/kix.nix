@@ -28,6 +28,7 @@ in {
   home.packages = with pkgs; [
     protonup-qt
     via
+    (config.lib.nixGL.wrap looking-glass-client)
   ];
 
   # NixOS State Version for Home

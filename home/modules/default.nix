@@ -7,7 +7,7 @@
   # Password store
   programs.password-store = {
     enable = true;
-    package = pkgs.pass.withExtensions (ext: with ext; [ext.pass-otp]);
+    package = pkgs.pass.withExtensions (ext: with ext; [pass-otp]);
     settings = {
       PASSWORD_STORE_DIR = "${config.home.homeDirectory}/sync/.password-store";
     };
@@ -128,53 +128,6 @@
     monospace = ["DejaVu Sans Mono"];
   };
 
-  # Slop generation
-  programs.claude-code = {
-    enable = true;
-    package = pkgs.llm-agents.claude-code; # From the overlay
-    settings = {
-      hooks = {
-        PostToolUse = [
-          {
-            hooks = [
-              {
-                # Hook input arrives as JSON on stdin; format the edited file
-                command = "jq -r '.tool_input.file_path' | xargs --no-run-if-empty nix fmt";
-                type = "command";
-              }
-            ];
-            matcher = "Edit|MultiEdit|Write";
-          }
-        ];
-        PreToolUse = [
-          {
-            hooks = [
-              {
-                command = "jq -r '\"Running command: \" + .tool_input.command'";
-                type = "command";
-              }
-            ];
-            matcher = "Bash";
-          }
-        ];
-      };
-      includeCoAuthoredBy = false;
-      permissions = {
-        allow = [
-          "Bash(git diff:*)"
-        ];
-        ask = [
-          "Bash(git push:*)"
-        ];
-        deny = [
-          "Bash(curl:*)"
-        ];
-        disableBypassPermissionsMode = "disable";
-      };
-      theme = "dark";
-    };
-  };
-
   # Bring in everything else that might need more configuration
   imports = [
     ./email.nix
@@ -190,6 +143,7 @@
     ./tools/git.nix
     ./tools/gpg.nix
     ./tools/ssh.nix
+    ./tools/slop.nix
     ./services/calendar.nix
     ./services/syncthing.nix
   ];

@@ -28,6 +28,9 @@
     open = true;
   };
 
+  # Enable CUDA for llama.cpp and other compute workloads
+  nixpkgs.config.cudaSupport = true;
+
   # Custom boot settings
   boot = {
     # Enable IOMMU for libvirt and isolate the gpu we'll pass through

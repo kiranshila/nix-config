@@ -47,6 +47,9 @@ in {
     export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
   '';
 
+  # Krocky-specific packages
+  home.packages = [(config.lib.nixGL.wrap pkgs.looking-glass-client)];
+
   # Sync to Home, Laptop, and NAS
   services.syncthing.settings = syncWith ["NAS" "Home" "Laptop"];
 

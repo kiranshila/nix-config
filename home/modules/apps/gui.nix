@@ -7,7 +7,6 @@
   home.packages = with pkgs;
     map config.lib.nixGL.wrap [
       onlyoffice-desktopeditors
-      looking-glass-client
       slack
       musescore
       muse-sounds-manager
