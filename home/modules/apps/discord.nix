@@ -11,8 +11,6 @@
       installPackage = false; # Below, wraps nixGL
     };
 
-    vesktop.enable = true;
-
     config = {
       plugins = {
         betterFolders.enable = true;

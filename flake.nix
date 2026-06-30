@@ -51,6 +51,7 @@
       url = "github:FlameFlag/nixcord";
       inputs = {
         nixpkgs.follows = "nixpkgs";
+        nixpkgs-nixcord.follows = "nixpkgs";
       };
     };
 
